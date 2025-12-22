@@ -29,7 +29,7 @@ public class FireballSystem : ScriptableObject
         Vector3 spawnPos = _earthTransform.position + new Vector3(x, y, 0);
         
         var fireball = Instantiate(FireballPrefab,  spawnPos, Quaternion.identity);
-        fireball.Initialize(_earthTransform);
+        fireball.Initialize(_earthTransform, _loopDetection);
     }
 }
 
