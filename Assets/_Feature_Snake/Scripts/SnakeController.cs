@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeController : MonoBehaviour
+public class SnakeController : MonoBehaviour, ILoopDetection
 {
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
@@ -38,7 +38,6 @@ public class SnakeController : MonoBehaviour
     private void OnEnable()
     {
         EventManager.OnSteerInput += HandleSteer;
-        EventManager.OnCheckLoopDetection += IsFireballInLoop;
     }
 
     private void OnDisable()
@@ -65,7 +64,7 @@ public class SnakeController : MonoBehaviour
         // 4. Move Body Parts
         UpdateBodyPositions();
 
-        // 5. Cleanup History (Optional: keeps the list from growing infinitely)
+        // Cleanup History
         if (_positionsHistory.Count > (_bodyParts.Count + 1) * gap)
         {
             _positionsHistory.RemoveAt(_positionsHistory.Count - 1);
@@ -129,7 +128,7 @@ public class SnakeController : MonoBehaviour
     [SerializeField] private int minSegmentsForLoop = 10;   // Prevent head from "looping" with its own neck
 
     // Call this method whenever you want to check a fireball (e.g., every frame or on a timer)
-    public bool IsFireballInLoop(Vector2 fireballPos)
+    public bool IsPointInLoop(Vector2 pos)
     {
         int closureIndex = FindLoopClosureIndex();
 
@@ -146,7 +145,7 @@ public class SnakeController : MonoBehaviour
             polygon.Add(_bodyParts[i].transform.position);
         }
 
-        return IsPointInPolygon(fireballPos, polygon);
+        return IsPointInPolygon(pos, polygon);
     }
 
     // Finds the index of the body segment the head is currently "touching"

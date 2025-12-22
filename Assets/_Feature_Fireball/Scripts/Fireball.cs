@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Fireball : MonoBehaviour
@@ -7,6 +6,8 @@ public class Fireball : MonoBehaviour
     public EarthConfig EarthConfig;
 
     private Rigidbody _rb;
+    
+    private ILoopDetection _loopDetection;
 
     private void Start()
     {
@@ -14,9 +15,10 @@ public class Fireball : MonoBehaviour
         _rb.useGravity = false;
     }
 
-    public void Initialize(Transform target)
+    public void Initialize(Transform target, ILoopDetection loopDetection)
     {
         Target = target;
+        _loopDetection = loopDetection;
     }
 
     private void FixedUpdate()
@@ -37,8 +39,9 @@ public class Fireball : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            if (EventManager.TriggerCheckLoopDetection(transform.position))
+            if (_loopDetection.IsPointInLoop(transform.position))
             {
+                EventManager.TriggerFireballDestroyed();
                 Destroy(this.gameObject);
             }
         }
