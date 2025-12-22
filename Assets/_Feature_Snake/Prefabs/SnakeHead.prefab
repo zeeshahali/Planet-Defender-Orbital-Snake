@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 61160262773570420}
   m_Layer: 0
   m_Name: SnakeHead
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,6 +130,8 @@ MonoBehaviour:
   bodyPrefab: {fileID: 3008357189914711286, guid: 6363aec158a77ce4abb041b47c586aea, type: 3}
   gap: 50
   initialBodySize: 15
+  closureThreshold: 1
+  minSegmentsForLoop: 10
 --- !u!114 &61160262773570420
 MonoBehaviour:
   m_ObjectHideFlags: 0

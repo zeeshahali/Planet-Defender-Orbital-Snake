@@ -34,5 +34,13 @@ public class Fireball : MonoBehaviour
             Destroy(this.gameObject);
             EventManager.TriggerCameraShake();
         }
+
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if (EventManager.TriggerCheckLoopDetection(transform.position))
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 }
