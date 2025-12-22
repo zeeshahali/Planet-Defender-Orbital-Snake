@@ -18,9 +18,15 @@ public class FireballSystem : ScriptableObject
 
     public void SpawnFireball()
     {
-        var randomDirection = Random.onUnitSphere;
+        float angle = Random.Range(0f, Mathf.PI * 2);
+
+        // Calculate position using Sine and Cosine
+        float x = Mathf.Cos(angle) * EarthConfig.Radius;
+        float z = Mathf.Sin(angle) * EarthConfig.Radius;
+
+        Vector3 spawnPos = EarthTransform.position + new Vector3(10, x, z);
         
-        var spawnPos = EarthTransform.position +  randomDirection * EarthConfig.Radius;
+        // var spawnPos = EarthTransform.position +  randomDirection * EarthConfig.Radius;
         
         var fireball = Instantiate(FireballPrefab,  spawnPos, Quaternion.identity);
         fireball.Initialize(EarthTransform);
