@@ -12,4 +12,7 @@ public static class EventManager
 
     public static event Func<Vector2, bool> OnCheckLoopDetection;
     public static bool TriggerCheckLoopDetection(Vector2 direction) => OnCheckLoopDetection != null && OnCheckLoopDetection.Invoke(direction);
+
+    public static event Action OnFireballDestroyed;
+    public static void TriggerFireballDestroyed() => OnFireballDestroyed?.Invoke();
 }
