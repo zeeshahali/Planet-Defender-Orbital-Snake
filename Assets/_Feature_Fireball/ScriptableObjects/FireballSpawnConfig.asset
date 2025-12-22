@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 772e025cd5264bfcba48ae8fabe1b6d9, type: 3}
-  m_Name: FireballSystem
+  m_Script: {fileID: 11500000, guid: d10c7d8146bc4e758a3ced6c772975f1, type: 3}
+  m_Name: FireballSpawnConfig
   m_EditorClassIdentifier: 
-  EarthConfig: {fileID: 11400000, guid: 65058bd67c241dc41a8086315e654d73, type: 2}
-  FireballSpawnConfig: {fileID: 11400000, guid: a9e30fe55a188e54f8807e859a9f6d07, type: 2}
+  SpawnDelay: 2
+  FireballPrefab: {fileID: 5302340700869156523, guid: b5b4efb3e2e5b7041bb3c127d2d346e3, type: 3}

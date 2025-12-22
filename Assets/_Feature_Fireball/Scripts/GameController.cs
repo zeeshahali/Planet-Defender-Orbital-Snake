@@ -9,6 +9,6 @@ public class GameController : MonoBehaviour
 
     public void Awake()
     {
-        FireballSystem.Initialize(EarthTransform, SnakeController);
+        FireballSystem.Initialize(EarthTransform, SnakeController, this);
     }
 }

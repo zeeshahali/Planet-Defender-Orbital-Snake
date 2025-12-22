@@ -125,7 +125,7 @@ public class SnakeController : MonoBehaviour, ILoopDetection
     
     [Header("Loop Detection")]
     [SerializeField] private float closureThreshold = 1.0f; // Distance to consider a loop "closed"
-    [SerializeField] private int minSegmentsForLoop = 10;   // Prevent head from "looping" with its own neck
+    [SerializeField] private int minSegmentsForLoop = 0;   // Prevent head from "looping" with its own neck
 
     // Call this method whenever you want to check a fireball (e.g., every frame or on a timer)
     public bool IsPointInLoop(Vector2 pos)
@@ -181,17 +181,6 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         }
 
         return isInside;
-    }
-
-    // Optional: Visualize the closure detection in the editor
-    private void OnDrawGizmosSelected()
-    {
-        int closureIndex = FindLoopClosureIndex();
-        if (closureIndex != -1)
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(_bodyParts[closureIndex].transform.position, closureThreshold);
-        }
     }
 
     private void OnDrawGizmos()

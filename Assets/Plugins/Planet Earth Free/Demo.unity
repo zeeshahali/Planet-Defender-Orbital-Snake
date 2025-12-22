@@ -203,6 +203,18 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 455774, guid: 27fe6d2a15a377f4587f716a2d37ca8a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 455774, guid: 27fe6d2a15a377f4587f716a2d37ca8a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 455774, guid: 27fe6d2a15a377f4587f716a2d37ca8a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2367716, guid: 27fe6d2a15a377f4587f716a2d37ca8a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -367,6 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FireballSystem: {fileID: 11400000, guid: b8b8a13b2c6c8d44198f9fca52cbbdb0, type: 2}
   EarthTransform: {fileID: 924487}
+  SnakeController: {fileID: 1262714862}
 --- !u!4 &1020071082
 Transform:
   m_ObjectHideFlags: 0
@@ -484,6 +497,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1262714862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8522671491544463562, guid: 7414bd6003dd29246b09a42b9e2bd3aa, type: 3}
+  m_PrefabInstance: {fileID: 8918808043518493453}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8bed72094c49dfaa2c6bb42f1b872b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1928411719
 GameObject:
   m_ObjectHideFlags: 0
