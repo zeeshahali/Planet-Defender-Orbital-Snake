@@ -8,12 +8,12 @@ public class CameraShake : MonoBehaviour
     [SerializeField] private Transform Target;
     [SerializeField] private CameraShakeConfig CameraShakeConfig;
 
-    public void OnEnable()
+    private void OnEnable()
     {
         EventManager.RequestCameraShake += Shake;
     }
 
-    public void OnDisable()
+    private void OnDisable()
     {
         EventManager.RequestCameraShake -= Shake;
     }
