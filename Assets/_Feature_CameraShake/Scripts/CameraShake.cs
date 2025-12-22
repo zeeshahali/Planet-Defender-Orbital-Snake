@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
@@ -6,6 +7,16 @@ public class CameraShake : MonoBehaviour
 {
     [SerializeField] private Transform Target;
     [SerializeField] private CameraShakeConfig CameraShakeConfig;
+
+    public void OnEnable()
+    {
+        EventManager.RequestCameraShake += Shake;
+    }
+
+    public void OnDisable()
+    {
+        EventManager.RequestCameraShake -= Shake;
+    }
 
     public void Shake()
     {

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Fireball : MonoBehaviour
@@ -24,5 +25,14 @@ public class Fireball : MonoBehaviour
         
         var direction =  (Target.position - transform.position).normalized;
         _rb.AddForce(direction * EarthConfig.GravityIntensity,  ForceMode.Acceleration);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Planet"))
+        {
+            Destroy(this.gameObject);
+            EventManager.TriggerCameraShake();
+        }
     }
 }
