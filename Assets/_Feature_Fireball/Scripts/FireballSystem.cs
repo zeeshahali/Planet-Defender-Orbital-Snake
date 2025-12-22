@@ -24,7 +24,7 @@ public class FireballSystem : ScriptableObject
         float x = Mathf.Cos(angle) * EarthConfig.Radius;
         float z = Mathf.Sin(angle) * EarthConfig.Radius;
 
-        Vector3 spawnPos = EarthTransform.position + new Vector3(10, x, z);
+        Vector3 spawnPos = EarthTransform.position + new Vector3(x, z, 0);
         
         // var spawnPos = EarthTransform.position +  randomDirection * EarthConfig.Radius;
         
