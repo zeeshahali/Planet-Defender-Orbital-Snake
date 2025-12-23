@@ -150,8 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c360f97bdee2ed42bff596f367b2e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  EarthConfig: {fileID: 11400000, guid: 65058bd67c241dc41a8086315e654d73, type: 2}
+  config: {fileID: 11400000, guid: 65058bd67c241dc41a8086315e654d73, type: 2}
 --- !u!1001 &3491869339389415056
 PrefabInstance:
   m_ObjectHideFlags: 0

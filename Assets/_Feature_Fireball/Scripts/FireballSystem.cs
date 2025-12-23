@@ -17,10 +17,14 @@ public class FireballSystem : ScriptableObject
     private MonoBehaviour _coroutineHandler;
     
     private Coroutine _spawningCoroutine;
+    
+    private ProjectileFactory _projectileFactory;
 
     public void Initialize(Transform earthTransform, ILoopDetection loopDetection, MonoBehaviour coroutineHandler)
     {
         CanSpawnFireballs = true;
+
+        _projectileFactory = new ProjectileFactory(FireballSpawnConfig.FireballPrefab);
         
         _earthTransform = earthTransform;
         _loopDetection = loopDetection;
@@ -49,9 +53,9 @@ public class FireballSystem : ScriptableObject
         float y = Mathf.Sin(angle) * EarthConfig.Radius;
 
         Vector3 spawnPos = _earthTransform.position + new Vector3(x, y, 0);
-        
-        var fireball = Instantiate(FireballSpawnConfig.FireballPrefab,  spawnPos, Quaternion.identity);
-        fireball.Initialize(_earthTransform, _loopDetection);
+
+        _projectileFactory.CreateFireball(spawnPos, _earthTransform, new GravityMovementStrategy(EarthConfig),
+            _loopDetection);
     }
 
     public void StartSpawningCoroutine()

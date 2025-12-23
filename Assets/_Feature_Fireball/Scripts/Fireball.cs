@@ -1,32 +1,12 @@
 using UnityEngine;
 
-public class Fireball : MonoBehaviour
+public class Fireball : Projectile
 {
-    public Transform Target;
-    public EarthConfig EarthConfig;
-
-    private Rigidbody _rb;
-    
     private ILoopDetection _loopDetection;
 
-    private void Start()
+    public void SetLoopDetection(ILoopDetection loopDetection)
     {
-        _rb = GetComponent<Rigidbody>();
-        _rb.useGravity = false;
-    }
-
-    public void Initialize(Transform target, ILoopDetection loopDetection)
-    {
-        Target = target;
         _loopDetection = loopDetection;
-    }
-
-    private void FixedUpdate()
-    {
-        if(Target == null) return;
-        
-        var direction =  (Target.position - transform.position).normalized;
-        _rb.AddForce(direction * EarthConfig.GravityIntensity,  ForceMode.Acceleration);
     }
 
     private void OnCollisionEnter(Collision other)
