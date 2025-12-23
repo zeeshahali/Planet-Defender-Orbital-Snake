@@ -15,6 +15,18 @@ public class BoundaryConfig : ScriptableObject
 
     public float GetOuterRadius()
     {
-        return EarthConfig.Radius * OuterRadiusMultplier;
+        float screenRadius = GetCornerRadius(Camera.main);
+        return screenRadius;
+    }
+    
+    public float GetCornerRadius(Camera cam)
+    {
+        if (!cam.orthographic) return 0f;
+
+        float halfHeight = cam.orthographicSize;
+        float halfWidth = halfHeight * cam.aspect;
+
+        // Calculate distance from center to a corner (0,0 to halfWidth, halfHeight)
+        return Mathf.Min(halfWidth, halfHeight) - 0.5f;
     }
 }
