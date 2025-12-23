@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  steerSpeed: 180
+  steerSpeed: 360
   centerPoint: {x: 0, y: 0}
   innerRadius: 15
   outerRadius: 27.5
@@ -131,7 +131,7 @@ MonoBehaviour:
   gap: 50
   initialBodySize: 15
   closureThreshold: 1
-  minSegmentsForLoop: 0
+  minSegmentsForLoop: 10
 --- !u!114 &61160262773570420
 MonoBehaviour:
   m_ObjectHideFlags: 0

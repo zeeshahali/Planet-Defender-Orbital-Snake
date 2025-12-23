@@ -125,8 +125,8 @@ public partial class @SnakeControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""be789fae-4b78-44db-b583-5f1114aafcc3"",
-                    ""path"": ""<Mouse>/position"",
+                    ""id"": ""dcdce886-ee46-49c8-9c58-7e9b5619f01e"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

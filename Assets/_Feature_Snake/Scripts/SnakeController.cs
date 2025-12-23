@@ -23,10 +23,14 @@ public class SnakeController : MonoBehaviour, ILoopDetection
     private float _steerInput;
     private Rigidbody2D rb;
 
+    private bool _isLooping;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         if (rb != null) rb.gravityScale = 0;
+
+        _isLooping = false;
 
         // Initialize snake body
         for (int i = 0; i < initialBodySize; i++)
@@ -47,13 +51,25 @@ public class SnakeController : MonoBehaviour, ILoopDetection
 
     private void HandleSteer(float value) => _steerInput = value;
 
+    public float steerLerpSpeed = 5f;
+    
+
     void Update()
+    {
+        Move();
+    }
+
+    private void Move()
     {
         // 1. Move the Head
         transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
-        float rotationAmount = -_steerInput * steerSpeed * Time.deltaTime;
-        transform.Rotate(Vector3.forward, rotationAmount);
+        
+        float targetAngle = -_steerInput * steerSpeed;
+        float currentAngle = transform.eulerAngles.z;
 
+        float smoothAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * steerLerpSpeed);
+        transform.rotation = Quaternion.Euler(0, 0, smoothAngle);
+        
         // 2. Handle Constraint (Stay in Donut)
         ApplyDonutConstraint();
 
@@ -122,6 +138,23 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         if (rb != null) rb.position = newPos;
         transform.position = newPos;
     }
+
+    private void CheckForLoop()
+    {
+        float collisionThreshold = 0.5f; // Adjust based on snake size
+
+        // Start loop from index 3 or 4 to avoid hitting the 'neck'
+        for (int i = 2; i < _bodyParts.Count; i++)
+        {
+            if (Vector3.Distance(this.transform.position, _bodyParts[i].transform.position) < collisionThreshold)
+            {
+                Debug.Log("Loop Detected mathematically!");
+                _isLooping = true;
+                break;
+            }
+        }
+        _isLooping = false;
+    }
     
     [Header("Loop Detection")]
     [SerializeField] private float closureThreshold = 1.0f; // Distance to consider a loop "closed"
@@ -131,6 +164,8 @@ public class SnakeController : MonoBehaviour, ILoopDetection
     public bool IsPointInLoop(Vector2 pos)
     {
         int closureIndex = FindLoopClosureIndex();
+        
+        Debug.Log($"ClosureIndex: {closureIndex}");
 
         // If no closure index is found, there is no loop
         if (closureIndex == -1) return false;

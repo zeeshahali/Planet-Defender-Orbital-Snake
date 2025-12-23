@@ -23,16 +23,26 @@ public class SwipeInputReader : MonoBehaviour
         if (controls.Player.PrimaryContact.WasReleasedThisFrame())
         {
             isTouching = false;
-            EventManager.TriggerSteer(0); // Reset steering
+            //EventManager.TriggerSteer(0); // Reset steering
         }
 
         if (isTouching)
         {
             Vector2 currentTouch = controls.Player.PrimaryPosition.ReadValue<Vector2>();
-            float swipeDelta = (currentTouch.x - touchStartPosition.x) / Screen.width;
-            
-            // Send the steer value (-1 to 1) through the EventManager
-            EventManager.TriggerSteer(Mathf.Clamp(swipeDelta * 2, -1f, 1f));
+            UseJoystickInput(currentTouch);
         }
+    }
+
+    private void UseJoystickInput(Vector2 value)
+    {
+        float angle = Mathf.Atan2(value.x, value.y) * Mathf.Rad2Deg;
+        float steerValue = Mathf.Clamp(angle / 180f, -1f, 1f);
+        EventManager.TriggerSteer(steerValue);
+    }
+
+    private void UseMouseInput(Vector2 value)
+    {
+        float swipeDelta = (value.x - touchStartPosition.x) / Screen.width;
+        EventManager.TriggerSteer(Mathf.Clamp(swipeDelta * 2, -1f, 1f));
     }
 }
