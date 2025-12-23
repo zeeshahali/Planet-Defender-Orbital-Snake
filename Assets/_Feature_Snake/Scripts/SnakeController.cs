@@ -5,11 +5,6 @@ public class SnakeController : MonoBehaviour, ILoopDetection
 {
     [SerializeField] private SnakeConfig SnakeConfig;
     
-    [Header("Body Settings")]
-    [SerializeField] private GameObject bodyPrefab;
-    [SerializeField] private int gap = 10; // Frames/steps between segments
-    [SerializeField] private int initialBodySize = 5;
-    
     [SerializeField] private SnakeLoopDetector snakeLoopDetector;
     [SerializeField] private DonutBoundary donutBoundary;
 
@@ -29,7 +24,7 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         _isLooping = false;
 
         // Initialize snake body
-        for (int i = 0; i < initialBodySize; i++)
+        for (int i = 0; i < SnakeConfig.initialBodySize; i++)
         {
             GrowSnake();
         }
@@ -74,7 +69,7 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         UpdateBodyPositions();
 
         // Cleanup History
-        if (_positionsHistory.Count > (_bodyParts.Count + 1) * gap)
+        if (_positionsHistory.Count > (_bodyParts.Count + 1) * SnakeConfig.gap)
         {
             _positionsHistory.RemoveAt(_positionsHistory.Count - 1);
         }
@@ -87,7 +82,7 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         {
             // Each segment follows the head's history based on the gap
             // index + 1 because history[0] is the head's current position
-            int historyIndex = Mathf.Min((index + 1) * gap, _positionsHistory.Count - 1);
+            int historyIndex = Mathf.Min((index + 1) * SnakeConfig.gap, _positionsHistory.Count - 1);
             
             Vector3 point = _positionsHistory[historyIndex];
             
@@ -100,7 +95,7 @@ public class SnakeController : MonoBehaviour, ILoopDetection
 
     public void GrowSnake()
     {
-        GameObject body = Instantiate(bodyPrefab, transform.position, Quaternion.identity);
+        GameObject body = SnakeConfig.GetBodyPart(this.transform);
         _bodyParts.Add(body);
     }
 

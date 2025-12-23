@@ -125,9 +125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SnakeConfig: {fileID: 11400000, guid: 61ee7fb591dd5fe47a98411e6761e1aa, type: 2}
-  bodyPrefab: {fileID: 3008357189914711286, guid: 6363aec158a77ce4abb041b47c586aea, type: 3}
-  gap: 50
-  initialBodySize: 15
   snakeLoopDetector: {fileID: 8837302513761592517}
   donutBoundary: {fileID: 5499713303095158879}
 --- !u!114 &61160262773570420

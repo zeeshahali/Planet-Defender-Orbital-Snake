@@ -7,4 +7,15 @@ public class SnakeConfig : ScriptableObject
     public float MoveSpeed = 5f;
     public float SteerSpeed = 200f;
     public float SteerLerpSpeed = 5f;
+    
+    [Header("Body Settings")]
+    public GameObject bodyPrefab;
+    public int gap = 10; // Frames/steps between segments
+    public int initialBodySize = 5;
+
+    public GameObject GetBodyPart(Transform head)
+    {
+        GameObject body = Instantiate(bodyPrefab, head.position, Quaternion.identity, head);
+        return body;
+    }
 }
