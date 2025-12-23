@@ -2,12 +2,14 @@
 
 public class DonutBoundary : MonoBehaviour
 {
-    public Vector2 centerPoint = Vector2.zero;
-    public float innerRadius = 3f;
-    public float outerRadius = 10f;
+    [SerializeField] private BoundaryConfig BoundaryConfig;
 
     public void ApplyConstraint(Transform target, Rigidbody2D rb = null)
     {
+        var centerPoint = BoundaryConfig.CenterPoint;
+        var innerRadius = BoundaryConfig.GetInnerRadius();
+        var outerRadius = BoundaryConfig.GetOuterRadius();
+        
         Vector2 currentPos = target.position;
         float distanceFromCenter = Vector2.Distance(currentPos, centerPoint);
 
@@ -28,8 +30,8 @@ public class DonutBoundary : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(centerPoint, outerRadius);
+        Gizmos.DrawWireSphere(BoundaryConfig.CenterPoint, BoundaryConfig.GetOuterRadius());
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(centerPoint, innerRadius);
+        Gizmos.DrawWireSphere(BoundaryConfig.CenterPoint, BoundaryConfig.GetInnerRadius());
     }
 }

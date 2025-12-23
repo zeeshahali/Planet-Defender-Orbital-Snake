@@ -151,9 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3efa78cbd1b4efba68aa65942206a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centerPoint: {x: 0, y: 0}
-  innerRadius: 15
-  outerRadius: 27.5
+  BoundaryConfig: {fileID: 11400000, guid: e596bee528a177d4487f2f07aa7ac11c, type: 2}
 --- !u!114 &8837302513761592517
 MonoBehaviour:
   m_ObjectHideFlags: 0

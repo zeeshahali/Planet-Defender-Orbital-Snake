@@ -219,6 +219,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9129bad9aad7f394aa91b2eb46de21c8, type: 2}
+    - target: {fileID: 11491094, guid: 27fe6d2a15a377f4587f716a2d37ca8a, type: 3}
+      propertyPath: spin
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -227,6 +231,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 924490}
   m_SourcePrefab: {fileID: 100100000, guid: 27fe6d2a15a377f4587f716a2d37ca8a, type: 3}
+--- !u!114 &146927874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2967914241441313305, guid: 27fe6d2a15a377f4587f716a2d37ca8a, type: 3}
+  m_PrefabInstance: {fileID: 146927873}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae47c65f6553f24b896112c95a06c19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &837438360
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +815,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4521373099795149336, guid: c3a03abe45f5d6c45aad8b3cf7458170, type: 3}
+      propertyPath: Planet
+      value: 
+      objectReference: {fileID: 146927874}
     - target: {fileID: 4521373099795149336, guid: c3a03abe45f5d6c45aad8b3cf7458170, type: 3}
       propertyPath: EarthTransform
       value: 

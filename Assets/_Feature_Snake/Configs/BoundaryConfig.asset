@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35181fd9b8ed40baba673876098156f8, type: 3}
-  m_Name: EarthConfig
+  m_Script: {fileID: 11500000, guid: a9245bf76219419d82a8387a8c0697f0, type: 3}
+  m_Name: BoundaryConfig
   m_EditorClassIdentifier: 
-  GravityIntensity: 1
-  Radius: 25
+  EarthConfig: {fileID: 11400000, guid: 65058bd67c241dc41a8086315e654d73, type: 2}
+  OuterRadiusMultplier: 2
+  InnerRadiusMultplier: 1
+  CenterPoint: {x: 0, y: 0}
