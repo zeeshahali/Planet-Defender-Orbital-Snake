@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class SnakeController : MonoBehaviour, ILoopDetection
@@ -15,6 +16,8 @@ public class SnakeController : MonoBehaviour, ILoopDetection
     private Rigidbody2D rb;
 
     private bool _isLooping;
+
+    private bool _canMove;
 
     private void Awake()
     {
@@ -33,14 +36,21 @@ public class SnakeController : MonoBehaviour, ILoopDetection
     private void OnEnable()
     {
         EventManager.OnSteerInput += HandleSteer;
+        _canMove = true;
     }
 
     private void OnDisable()
     {
         EventManager.OnSteerInput -= HandleSteer;
+        _canMove = false;
     }
 
     private void HandleSteer(float value) => _steerInput = value;
+
+    public void GameOver()
+    {
+        _canMove = false;
+    }
     
     void Update()
     {
@@ -49,6 +59,8 @@ public class SnakeController : MonoBehaviour, ILoopDetection
 
     private void Move()
     {
+        if (!_canMove) return;
+        
         // 1. Move the Head
         transform.Translate(Vector3.up * SnakeConfig.MoveSpeed * Time.deltaTime);
         

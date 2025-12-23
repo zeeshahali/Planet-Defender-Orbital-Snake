@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EarthConfig
   m_EditorClassIdentifier: 
   StartingHealth: 100
-  DamagePerHit: 11.55
+  DamagePerHit: 153.2
   GravityIntensity: 1
   Radius: 12

@@ -11,4 +11,20 @@ public class GameController : MonoBehaviour
     {
         FireballSystem.Initialize(Planet.PlanetTransform, SnakeController, this);
     }
+
+    private void OnGameOver()
+    {
+        FireballSystem.GameOver();
+        SnakeController.GameOver();
+    }
+    
+    private void OnEnable()
+    {
+        EventManager.OnGameOver += OnGameOver;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnGameOver -= OnGameOver;
+    }
 }

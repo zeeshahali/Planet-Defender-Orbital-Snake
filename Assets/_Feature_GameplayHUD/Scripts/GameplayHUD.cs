@@ -9,11 +9,14 @@ public class GameplayHUD : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _healthText;
+    
+    [SerializeField] private RectTransform _gameOverPanel;
 
     [SerializeField] private Image _healthEffectImage;
     [SerializeField] private Image _healthImage;
     
     [SerializeField] private Button ResetButton;
+    [SerializeField] private Button RestartButton;
 
     private int _currentScore;
     
@@ -26,22 +29,34 @@ public class GameplayHUD : MonoBehaviour
     private void OnEnable()
     {
         EventManager.OnFireballDestroyed += OnFireballDestroyed;
+        EventManager.OnGameOver += OnGameOver;
         EventManager.OnPlanetHealthUpdate += OnPlanetHealthUpdate;
         ResetButton.onClick.AddListener(OnResetButtonClicked);
+        RestartButton.onClick.AddListener(OnResetButtonClicked);
     }
 
     private void OnDisable()
     {
         EventManager.OnFireballDestroyed -= OnFireballDestroyed;
+        EventManager.OnGameOver -= OnGameOver;
         EventManager.OnPlanetHealthUpdate -= OnPlanetHealthUpdate;
         ResetButton.onClick.RemoveListener(OnResetButtonClicked);
+        RestartButton.onClick.RemoveListener(OnResetButtonClicked);
     }
 
     private void OnResetButtonClicked()
     {
-        EventManager.TriggerGameReset();
+        EventManager.TriggerGameOver();
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
+    }
+
+    private void OnGameOver()
+    {
+        ResetButton.gameObject.SetActive(false);
+        _gameOverPanel.localScale = Vector3.zero;
+        _gameOverPanel.gameObject.SetActive(true);
+        _gameOverPanel.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
     }
 
     private void OnFireballDestroyed()

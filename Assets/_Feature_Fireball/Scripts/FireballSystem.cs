@@ -22,7 +22,6 @@ public class FireballSystem : ScriptableObject
 
     public void Initialize(Transform earthTransform, ILoopDetection loopDetection, MonoBehaviour coroutineHandler)
     {
-        EventManager.OnGameReset += OnGameReset;
         CanSpawnFireballs = true;
 
         _projectileFactory = new ProjectileFactory(FireballSpawnConfig.FireballPrefab);
@@ -74,10 +73,9 @@ public class FireballSystem : ScriptableObject
         _spawningCoroutine = null;
         CanSpawnFireballs = false;
     }
-
-    private void OnGameReset()
+    
+    public void GameOver()
     {
-        EventManager.OnGameReset -= OnGameReset;
         StopSpawningCoroutine();
     }
 }

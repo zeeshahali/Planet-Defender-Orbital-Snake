@@ -16,9 +16,9 @@ public static class EventManager
     public static event Action OnFireballDestroyed;
     public static void TriggerFireballDestroyed() => OnFireballDestroyed?.Invoke();
 
-    public static event Action OnGameReset;
-    public static void TriggerGameReset() => OnGameReset?.Invoke();
-
     public static event Action<float> OnPlanetHealthUpdate;
     public static void TriggerPlanetHealthUpdate(float value) => OnPlanetHealthUpdate?.Invoke(value);
+    
+    public static event Action OnGameOver;
+    public static void TriggerGameOver() => OnGameOver?.Invoke();
 }
