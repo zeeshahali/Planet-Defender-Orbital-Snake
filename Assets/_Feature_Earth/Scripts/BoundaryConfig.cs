@@ -8,25 +8,33 @@ public class BoundaryConfig : ScriptableObject
     public float InnerRadiusMultplier = 1;
     public Vector2 CenterPoint = Vector2.zero;
 
+    public float padding = 0.5f;
+
     public float GetInnerRadius()
     {
         return EarthConfig.Radius * InnerRadiusMultplier;
     }
 
-    public float GetOuterRadius()
+    // For rectangular boundary, we'll use these instead of radius
+    public float GetLeftBound(Camera cam) => GetScreenBounds(cam).x;
+    public float GetRightBound(Camera cam) => GetScreenBounds(cam).y;
+    public float GetBottomBound(Camera cam) => GetScreenBounds(cam).z;
+    public float GetTopBound(Camera cam) => GetScreenBounds(cam).w;
+        
+    private Vector4 GetScreenBounds(Camera cam)
     {
-        float screenRadius = GetCornerRadius(Camera.main);
-        return screenRadius;
-    }
-    
-    public float GetCornerRadius(Camera cam)
-    {
-        if (!cam.orthographic) return 0f;
-
+        if (!cam.orthographic) 
+            return Vector4.zero;
+                
         float halfHeight = cam.orthographicSize;
         float halfWidth = halfHeight * cam.aspect;
-
-        // Calculate distance from center to a corner (0,0 to halfWidth, halfHeight)
-        return Mathf.Min(halfWidth, halfHeight) - 0.5f;
+            
+        // Calculate boundaries with padding
+        float left = -halfWidth + padding;
+        float right = halfWidth - padding;
+        float bottom = -halfHeight + padding;
+        float top = halfHeight - padding;
+            
+        return new Vector4(left, right, bottom, top);
     }
 }

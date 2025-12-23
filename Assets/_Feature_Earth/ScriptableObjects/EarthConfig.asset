@@ -15,4 +15,4 @@ MonoBehaviour:
   StartingHealth: 100
   DamagePerHit: 1
   GravityIntensity: 1
-  Radius: 12
+  Radius: 7.5

@@ -7,5 +7,7 @@ public class EarthConfig : ScriptableObject
     public float DamagePerHit;
     
     public float GravityIntensity;
-    public float Radius;
+    
+    [Range(1f, 10f)]
+    public float Radius = 10f;
 }
