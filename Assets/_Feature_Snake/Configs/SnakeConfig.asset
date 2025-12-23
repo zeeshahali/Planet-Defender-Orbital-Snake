@@ -16,5 +16,5 @@ MonoBehaviour:
   SteerSpeed: 180
   SteerLerpSpeed: 5
   bodyPrefab: {fileID: 3008357189914711286, guid: 6363aec158a77ce4abb041b47c586aea, type: 3}
-  gap: 50
+  gap: 30
   initialBodySize: 15

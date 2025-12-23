@@ -1,7 +1,8 @@
 ﻿using System.Collections;
-using UnityEditor;
-#if UNITY_EDITOR
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
 #endif
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Systems/Fireball System", fileName = "FireballSystem", order = 0)]

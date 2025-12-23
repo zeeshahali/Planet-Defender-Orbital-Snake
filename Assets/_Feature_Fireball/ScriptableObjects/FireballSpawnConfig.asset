@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FireballSpawnConfig
   m_EditorClassIdentifier: 
   SpawnDelay: 2
-  SpawnRadiusMultiplier: 2.5
+  SpawnRadiusMultiplier: 3.5
   FireballPrefab: {fileID: 5302340700869156523, guid: b5b4efb3e2e5b7041bb3c127d2d346e3, type: 3}
