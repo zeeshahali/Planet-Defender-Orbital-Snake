@@ -3,6 +3,7 @@ using UnityEngine;
 public class Fireball : Projectile
 {
     private ILoopDetection _loopDetection;
+    [SerializeField] private GameObject _explosionParticle;
 
     public void SetLoopDetection(ILoopDetection loopDetection)
     {
@@ -25,5 +26,11 @@ public class Fireball : Projectile
                 Destroy(this.gameObject);
             }
         }
+    }
+
+    protected override void OnDestroy()
+    {
+        Instantiate(_explosionParticle, this.transform.position, Quaternion.identity);
+        base.OnDestroy();
     }
 }

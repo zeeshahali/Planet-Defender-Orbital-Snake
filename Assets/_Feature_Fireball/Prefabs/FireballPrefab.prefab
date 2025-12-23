@@ -52,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609178422573572583}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 65058bd67c241dc41a8086315e654d73, type: 2}
+  _explosionParticle: {fileID: 1879798220002124, guid: caf8f94a746de8c44b59c43d83cf4aca, type: 3}
 --- !u!1001 &3491869339389415056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,7 +166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1006269644436722, guid: 28cf3d889697a864195eea5d350c03aa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4638806428922356, guid: 28cf3d889697a864195eea5d350c03aa, type: 3}
       propertyPath: m_LocalScale.x
