@@ -14,7 +14,7 @@ public class Fireball : Projectile
     {
         if (other.gameObject.CompareTag("Planet"))
         {
-            Destroy(this.gameObject);
+            DestroyFireball();
             EventManager.TriggerCollisionWithPlanet();
         }
 
@@ -23,14 +23,14 @@ public class Fireball : Projectile
             if (_loopDetection.IsPointInLoop(transform.position))
             {
                 EventManager.TriggerFireballDestroyed();
-                Destroy(this.gameObject);
+                DestroyFireball();
             }
         }
     }
 
-    protected override void OnDestroy()
+    private void DestroyFireball()
     {
         Instantiate(_explosionParticle, this.transform.position, Quaternion.identity);
-        base.OnDestroy();
+        Destroy(this.gameObject);
     }
 }
