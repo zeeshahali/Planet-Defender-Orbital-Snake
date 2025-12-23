@@ -39,6 +39,28 @@
                 },
                 {
                     "name": "",
+                    "id": "203b3ffa-da33-48f2-bedc-bbd56983bc94",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrimaryContact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f66d22f1-d0b0-449c-96ce-0f7b337f6188",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrimaryContact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dcdce886-ee46-49c8-9c58-7e9b5619f01e",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
