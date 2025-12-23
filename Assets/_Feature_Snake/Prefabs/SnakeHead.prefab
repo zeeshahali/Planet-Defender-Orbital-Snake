@@ -124,17 +124,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8bed72094c49dfaa2c6bb42f1b872b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  steerSpeed: 180
-  centerPoint: {x: 0, y: 0}
-  innerRadius: 15
-  outerRadius: 27.5
+  SnakeConfig: {fileID: 11400000, guid: 61ee7fb591dd5fe47a98411e6761e1aa, type: 2}
   bodyPrefab: {fileID: 3008357189914711286, guid: 6363aec158a77ce4abb041b47c586aea, type: 3}
   gap: 50
   initialBodySize: 15
   snakeLoopDetector: {fileID: 8837302513761592517}
   donutBoundary: {fileID: 5499713303095158879}
-  steerLerpSpeed: 5
 --- !u!114 &61160262773570420
 MonoBehaviour:
   m_ObjectHideFlags: 0

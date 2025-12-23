@@ -3,15 +3,8 @@ using UnityEngine;
 
 public class SnakeController : MonoBehaviour, ILoopDetection
 {
-    [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float steerSpeed = 200f;
-
-    [Header("Boundary Settings")]
-    public Vector2 centerPoint = Vector2.zero;
-    public float innerRadius = 3f;
-    public float outerRadius = 10f;
-
+    [SerializeField] private SnakeConfig SnakeConfig;
+    
     [Header("Body Settings")]
     [SerializeField] private GameObject bodyPrefab;
     [SerializeField] private int gap = 10; // Frames/steps between segments
@@ -27,7 +20,7 @@ public class SnakeController : MonoBehaviour, ILoopDetection
     private Rigidbody2D rb;
 
     private bool _isLooping;
-    
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,10 +46,7 @@ public class SnakeController : MonoBehaviour, ILoopDetection
     }
 
     private void HandleSteer(float value) => _steerInput = value;
-
-    public float steerLerpSpeed = 5f;
     
-
     void Update()
     {
         Move();
@@ -65,12 +55,12 @@ public class SnakeController : MonoBehaviour, ILoopDetection
     private void Move()
     {
         // 1. Move the Head
-        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+        transform.Translate(Vector3.up * SnakeConfig.MoveSpeed * Time.deltaTime);
         
-        float targetAngle = -_steerInput * steerSpeed;
+        float targetAngle = -_steerInput * SnakeConfig.SteerSpeed;
         float currentAngle = transform.eulerAngles.z;
 
-        float smoothAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * steerLerpSpeed);
+        float smoothAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * SnakeConfig.SteerLerpSpeed);
         transform.rotation = Quaternion.Euler(0, 0, smoothAngle);
         
         // 2. Handle Constraint (Stay in Donut)
@@ -103,9 +93,6 @@ public class SnakeController : MonoBehaviour, ILoopDetection
             
             // Move segment to the history point
             body.transform.position = point;
-            
-            // Optional: Make segments look at the point they are moving towards
-            // body.transform.up = (_positionsHistory[Mathf.Max(0, historyIndex - 1)] - point).normalized;
 
             index++;
         }
