@@ -48,9 +48,11 @@ public class FireballSystem : ScriptableObject
     {
         float angle = Random.Range(0f, Mathf.PI * 2);
 
+        float spawnRadius = EarthConfig.Radius * FireballSpawnConfig.SpawnRadiusMultiplier;
+        
         // Calculate position using Sine and Cosine
-        float x = Mathf.Cos(angle) * EarthConfig.Radius;
-        float y = Mathf.Sin(angle) * EarthConfig.Radius;
+        float x = Mathf.Cos(angle) * spawnRadius;
+        float y = Mathf.Sin(angle) * spawnRadius;
 
         Vector3 spawnPos = _earthTransform.position + new Vector3(x, y, 0);
 

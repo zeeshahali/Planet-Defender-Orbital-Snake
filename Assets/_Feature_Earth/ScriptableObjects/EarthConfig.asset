@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EarthConfig
   m_EditorClassIdentifier: 
   GravityIntensity: 1
-  Radius: 25
+  Radius: 12
