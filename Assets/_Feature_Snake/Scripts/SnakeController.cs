@@ -16,6 +16,9 @@ public class SnakeController : MonoBehaviour, ILoopDetection
     [SerializeField] private GameObject bodyPrefab;
     [SerializeField] private int gap = 10; // Frames/steps between segments
     [SerializeField] private int initialBodySize = 5;
+    
+    [SerializeField] private SnakeLoopDetector snakeLoopDetector;
+    [SerializeField] private DonutBoundary donutBoundary;
 
     private List<GameObject> _bodyParts = new List<GameObject>();
     private List<Vector3> _positionsHistory = new List<Vector3>();
@@ -71,7 +74,7 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         transform.rotation = Quaternion.Euler(0, 0, smoothAngle);
         
         // 2. Handle Constraint (Stay in Donut)
-        ApplyDonutConstraint();
+        donutBoundary.ApplyConstraint(this.transform, rb);
 
         // 3. Track History
         // We insert the current position at the start of the list
@@ -114,31 +117,6 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         _bodyParts.Add(body);
     }
 
-    private void ApplyDonutConstraint()
-    {
-        Vector2 currentPos = transform.position;
-        float distanceFromCenter = Vector2.Distance(currentPos, centerPoint);
-
-        Vector2 directionFromCenter = (distanceFromCenter > 0.01f) 
-            ? (currentPos - centerPoint).normalized 
-            : (Vector2)transform.up;
-
-        if (distanceFromCenter > outerRadius)
-        {
-            SetPosition(centerPoint + (directionFromCenter * outerRadius));
-        }
-        else if (distanceFromCenter < innerRadius)
-        {
-            SetPosition(centerPoint + (directionFromCenter * innerRadius));
-        }
-    }
-
-    private void SetPosition(Vector2 newPos)
-    {
-        if (rb != null) rb.position = newPos;
-        transform.position = newPos;
-    }
-
     private void CheckForLoop()
     {
         float collisionThreshold = 0.5f; // Adjust based on snake size
@@ -156,73 +134,8 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         _isLooping = false;
     }
     
-    [Header("Loop Detection")]
-    [SerializeField] private float closureThreshold = 1.0f; // Distance to consider a loop "closed"
-    [SerializeField] private int minSegmentsForLoop = 0;   // Prevent head from "looping" with its own neck
-
-    // Call this method whenever you want to check a fireball (e.g., every frame or on a timer)
     public bool IsPointInLoop(Vector2 pos)
     {
-        int closureIndex = FindLoopClosureIndex();
-        
-        Debug.Log($"ClosureIndex: {closureIndex}");
-
-        // If no closure index is found, there is no loop
-        if (closureIndex == -1) return false;
-
-        // Create a list of points representing the closed loop
-        List<Vector2> polygon = new List<Vector2>();
-        polygon.Add(transform.position); // The Head
-
-        // Add all body segments from the neck down to the closure point
-        for (int i = 0; i <= closureIndex; i++)
-        {
-            polygon.Add(_bodyParts[i].transform.position);
-        }
-
-        return IsPointInPolygon(pos, polygon);
-    }
-
-    // Finds the index of the body segment the head is currently "touching"
-    private int FindLoopClosureIndex()
-    {
-        // Skip the first few segments (the neck) to avoid false positives
-        for (int i = minSegmentsForLoop; i < _bodyParts.Count; i++)
-        {
-            float dist = Vector2.Distance(transform.position, _bodyParts[i].transform.position);
-            if (dist < closureThreshold)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    // The Ray Casting Algorithm (Point-in-Polygon)
-    private bool IsPointInPolygon(Vector2 point, List<Vector2> polygon)
-    {
-        bool isInside = false;
-        int j = polygon.Count - 1;
-
-        for (int i = 0; i < polygon.Count; i++)
-        {
-            // Check if the ray crosses the edge between vertex i and vertex j
-            if (((polygon[i].y > point.y) != (polygon[j].y > point.y)) &&
-                (point.x < (polygon[j].x - polygon[i].x) * (point.y - polygon[i].y) / (polygon[j].y - polygon[i].y) + polygon[i].x))
-            {
-                isInside = !isInside;
-            }
-            j = i;
-        }
-
-        return isInside;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(centerPoint, outerRadius);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(centerPoint, innerRadius);
+        return snakeLoopDetector.IsPointInLoop(pos, this.transform.position, _bodyParts);
     }
 }

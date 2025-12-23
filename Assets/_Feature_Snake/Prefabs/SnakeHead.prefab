@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 513450533274500686}
   - component: {fileID: 8522671491544463562}
   - component: {fileID: 61160262773570420}
+  - component: {fileID: 5499713303095158879}
+  - component: {fileID: 8837302513761592517}
   m_Layer: 0
   m_Name: SnakeHead
   m_TagString: Player
@@ -123,15 +125,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  steerSpeed: 360
+  steerSpeed: 180
   centerPoint: {x: 0, y: 0}
   innerRadius: 15
   outerRadius: 27.5
   bodyPrefab: {fileID: 3008357189914711286, guid: 6363aec158a77ce4abb041b47c586aea, type: 3}
   gap: 50
   initialBodySize: 15
-  closureThreshold: 1
-  minSegmentsForLoop: 10
+  snakeLoopDetector: {fileID: 8837302513761592517}
+  donutBoundary: {fileID: 5499713303095158879}
+  steerLerpSpeed: 5
 --- !u!114 &61160262773570420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,3 +147,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f57549a1095b483ab594cf83ac855d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5499713303095158879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222837563008026499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3efa78cbd1b4efba68aa65942206a51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centerPoint: {x: 0, y: 0}
+  innerRadius: 15
+  outerRadius: 27.5
+--- !u!114 &8837302513761592517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222837563008026499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5d0fe4039a4e44ae8de186c870ee10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closureThreshold: 1
+  minSegmentsForLoop: 3
