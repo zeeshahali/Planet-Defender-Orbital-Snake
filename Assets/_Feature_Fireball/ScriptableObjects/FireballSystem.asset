@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EarthConfig: {fileID: 11400000, guid: 65058bd67c241dc41a8086315e654d73, type: 2}
   FireballSpawnConfig: {fileID: 11400000, guid: a9e30fe55a188e54f8807e859a9f6d07, type: 2}
+  CanSpawnFireballs: 1

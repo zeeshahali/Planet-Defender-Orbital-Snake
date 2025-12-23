@@ -1,9 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameplayHUD : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private Button ResetButton;
 
     private int _currentScore;
     
@@ -16,11 +19,20 @@ public class GameplayHUD : MonoBehaviour
     private void OnEnable()
     {
         EventManager.OnFireballDestroyed += OnFireballDestroyed;
+        ResetButton.onClick.AddListener(OnResetButtonClicked);
     }
 
     private void OnDisable()
     {
         EventManager.OnFireballDestroyed -= OnFireballDestroyed;
+        ResetButton.onClick.RemoveListener(OnResetButtonClicked);
+    }
+
+    private void OnResetButtonClicked()
+    {
+        EventManager.TriggerGameReset();
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
     }
 
     private void OnFireballDestroyed()

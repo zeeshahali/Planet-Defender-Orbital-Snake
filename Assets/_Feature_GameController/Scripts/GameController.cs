@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
     
     [SerializeField] private SnakeController SnakeController;
 
-    public void Awake()
+    private void Start()
     {
         FireballSystem.Initialize(Planet.PlanetTransform, SnakeController, this);
     }
