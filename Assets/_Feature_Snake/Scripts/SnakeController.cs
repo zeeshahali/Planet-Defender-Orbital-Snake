@@ -52,7 +52,7 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         _canMove = false;
     }
     
-    void Update()
+    private void FixedUpdate()
     {
         Move();
     }
