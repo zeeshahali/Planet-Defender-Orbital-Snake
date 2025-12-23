@@ -9,6 +9,7 @@ public class FireballSystem : ScriptableObject
 {
     [SerializeField] private EarthConfig EarthConfig;
     [SerializeField] private FireballSpawnConfig FireballSpawnConfig;
+    [SerializeField] private bool CanSpawnFireballs;
     
     private Transform _earthTransform;
     private ILoopDetection _loopDetection;
@@ -19,6 +20,8 @@ public class FireballSystem : ScriptableObject
 
     public void Initialize(Transform earthTransform, ILoopDetection loopDetection, MonoBehaviour coroutineHandler)
     {
+        CanSpawnFireballs = true;
+        
         _earthTransform = earthTransform;
         _loopDetection = loopDetection;
         
@@ -29,11 +32,12 @@ public class FireballSystem : ScriptableObject
 
     private IEnumerator FireballSpawnCoroutine()
     {
-        while (true)
+        while (CanSpawnFireballs)
         {
             yield return new WaitForSeconds(FireballSpawnConfig.SpawnDelay);
             SpawnFireball();
         }
+        StopSpawningCoroutine();
     }
 
     public void SpawnFireball()
@@ -61,6 +65,7 @@ public class FireballSystem : ScriptableObject
         if (_spawningCoroutine == null) return;
         _coroutineHandler.StopCoroutine(_spawningCoroutine);
         _spawningCoroutine = null;
+        CanSpawnFireballs = false;
     }
 }
 
