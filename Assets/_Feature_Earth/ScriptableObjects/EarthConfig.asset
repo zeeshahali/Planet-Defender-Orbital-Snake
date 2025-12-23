@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35181fd9b8ed40baba673876098156f8, type: 3}
   m_Name: EarthConfig
   m_EditorClassIdentifier: 
+  StartingHealth: 100
+  DamagePerHit: 11.55
   GravityIntensity: 1
   Radius: 12

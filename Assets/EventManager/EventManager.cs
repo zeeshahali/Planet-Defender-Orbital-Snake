@@ -3,9 +3,9 @@ using UnityEngine;
 
 public static class EventManager
 {
-    public static event Action RequestCameraShake;
+    public static event Action OnCollisionWithPlanet;
     
-    public static void TriggerCameraShake() => RequestCameraShake?.Invoke();
+    public static void TriggerCollisionWithPlanet() => OnCollisionWithPlanet?.Invoke();
     
     public static event Action<float> OnSteerInput;
     public static void TriggerSteer(float value) => OnSteerInput?.Invoke(value);
@@ -18,4 +18,7 @@ public static class EventManager
 
     public static event Action OnGameReset;
     public static void TriggerGameReset() => OnGameReset?.Invoke();
+
+    public static event Action<float> OnPlanetHealthUpdate;
+    public static void TriggerPlanetHealthUpdate(float value) => OnPlanetHealthUpdate?.Invoke(value);
 }

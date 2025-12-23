@@ -9,12 +9,12 @@ public class CameraShake : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.RequestCameraShake += Shake;
+        EventManager.OnCollisionWithPlanet += Shake;
     }
 
     private void OnDisable()
     {
-        EventManager.RequestCameraShake -= Shake;
+        EventManager.OnCollisionWithPlanet -= Shake;
     }
 
     public void Shake()

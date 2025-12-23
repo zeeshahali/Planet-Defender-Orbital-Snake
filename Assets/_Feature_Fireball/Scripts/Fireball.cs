@@ -14,7 +14,7 @@ public class Fireball : Projectile
         if (other.gameObject.CompareTag("Planet"))
         {
             Destroy(this.gameObject);
-            EventManager.TriggerCameraShake();
+            EventManager.TriggerCollisionWithPlanet();
         }
 
         if (other.gameObject.CompareTag("Player"))
