@@ -2,8 +2,6 @@
 
 public abstract class Projectile : MonoBehaviour
 {
-    [SerializeField] private EarthConfig config;
-    
     protected Transform target;
     protected Rigidbody rb;
 
@@ -29,10 +27,5 @@ public abstract class Projectile : MonoBehaviour
     {
         if(movementStrategy!=null)
             movementStrategy.Move(rb, transform, target);
-    }
-
-    protected virtual void OnDestroy()
-    {
-        Destroy(gameObject);
     }
 }
