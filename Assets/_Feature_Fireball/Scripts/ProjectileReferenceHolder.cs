@@ -5,54 +5,58 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Projectiles/ProjectileReferenceHolder", fileName = "ProjectileReferenceHolder", order = 0)]
-public class ProjectileReferenceHolder : ScriptableObject
+namespace OrbitalSnake.Projectiles
 {
-    [SerializeField] private List<Projectile> Projectiles = new List<Projectile>();
-    
-    public void Clear() => Projectiles.Clear();
-    public void Add(Projectile projectile) => Projectiles.Add(projectile);
-    public void Remove(Projectile projectile) => Projectiles.Remove(projectile);
+    [CreateAssetMenu(menuName = "ScriptableObjects/Projectiles/ProjectileReferenceHolder",
+        fileName = "ProjectileReferenceHolder", order = 0)]
+    public class ProjectileReferenceHolder : ScriptableObject
+    {
+        [SerializeField] private List<Projectile> Projectiles = new List<Projectile>();
 
-    public void FreezeProjectiles()
-    {
-        foreach (var projectile in Projectiles)
+        public void Clear() => Projectiles.Clear();
+        public void Add(Projectile projectile) => Projectiles.Add(projectile);
+        public void Remove(Projectile projectile) => Projectiles.Remove(projectile);
+
+        public void FreezeProjectiles()
         {
-            projectile.UpdateRbConstraints(RigidbodyConstraints.FreezeAll);
-            projectile.UpdateMeshRendererState(true);
+            foreach (var projectile in Projectiles)
+            {
+                projectile.UpdateRbConstraints(RigidbodyConstraints.FreezeAll);
+                projectile.UpdateMeshRendererState(true);
+            }
+        }
+
+        public void UnFreezeProjectiles()
+        {
+            foreach (var projectile in Projectiles)
+            {
+                projectile.UpdateMeshRendererState(false);
+                projectile.UpdateRbConstraints(RigidbodyConstraints.None);
+            }
         }
     }
-    
-    public void UnFreezeProjectiles()
-    {
-        foreach (var projectile in Projectiles)
-        {
-            projectile.UpdateMeshRendererState(false);
-            projectile.UpdateRbConstraints(RigidbodyConstraints.None);
-        }
-    }
-}
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(ProjectileReferenceHolder))]
-public class ProjectileReferenceHolderEditor : Editor
-{
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(ProjectileReferenceHolder))]
+    public class ProjectileReferenceHolderEditor : Editor
     {
-        DrawDefaultInspector();
-
-        ProjectileReferenceHolder system = (ProjectileReferenceHolder)target;
-
-        // Create the button
-        if (GUILayout.Button("Freeze Projectiles"))
+        public override void OnInspectorGUI()
         {
-            system.FreezeProjectiles();
+            DrawDefaultInspector();
+
+            ProjectileReferenceHolder system = (ProjectileReferenceHolder)target;
+
+            // Create the button
+            if (GUILayout.Button("Freeze Projectiles"))
+            {
+                system.FreezeProjectiles();
+            }
+
+            if (GUILayout.Button("Unfreeze Projectiles"))
+            {
+                system.UnFreezeProjectiles();
+            }
         }
-        
-        if(GUILayout.Button("Unfreeze Projectiles"))
-        {
-            system.UnFreezeProjectiles();
-        }
-    }   
-}
+    }
 #endif
+}

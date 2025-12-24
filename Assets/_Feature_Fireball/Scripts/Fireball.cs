@@ -1,36 +1,39 @@
 using UnityEngine;
 
-public class Fireball : Projectile
+namespace OrbitalSnake.Projectiles
 {
-    private ILoopDetection _loopDetection;
-    [SerializeField] private GameObject _explosionParticle;
-
-    public void SetLoopDetection(ILoopDetection loopDetection)
+    public class Fireball : Projectile
     {
-        _loopDetection = loopDetection;
-    }
+        private ILoopDetection _loopDetection;
+        [SerializeField] private GameObject _explosionParticle;
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Planet"))
+        public void SetLoopDetection(ILoopDetection loopDetection)
         {
-            DestroyFireball();
-            EventManager.TriggerCollisionWithPlanet();
+            _loopDetection = loopDetection;
         }
 
-        if (other.gameObject.CompareTag("Player"))
+        private void OnCollisionEnter(Collision other)
         {
-            if (_loopDetection.IsPointInLoop(transform.position))
+            if (other.gameObject.CompareTag("Planet"))
             {
-                EventManager.TriggerFireballDestroyed();
                 DestroyFireball();
+                EventManager.TriggerCollisionWithPlanet();
+            }
+
+            if (other.gameObject.CompareTag("Player"))
+            {
+                if (_loopDetection.IsPointInLoop(transform.position))
+                {
+                    EventManager.TriggerFireballDestroyed();
+                    DestroyFireball();
+                }
             }
         }
-    }
 
-    private void DestroyFireball()
-    {
-        Instantiate(_explosionParticle, this.transform.position, Quaternion.identity);
-        Destroy(this.gameObject);
+        private void DestroyFireball()
+        {
+            Instantiate(_explosionParticle, this.transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using ExtensionMethods;
+using OrbitalSnake.Projectiles;
 using UnityEngine;
 
 namespace OrbitalSnake.PowerUp
