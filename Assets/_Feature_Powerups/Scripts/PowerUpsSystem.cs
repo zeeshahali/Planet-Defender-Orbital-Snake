@@ -51,7 +51,9 @@ namespace OrbitalSnake.PowerUp
         {
             var powerUp = _powerUpDict[type];
             powerUp.ActivatePowerUp();
-            ActivePowerUps.Add(powerUp);
+            
+            if(powerUp is not SingleUsePowerUp)
+                ActivePowerUps.Add(powerUp); 
         }
 
         private void StartTimeCheckCoroutine()

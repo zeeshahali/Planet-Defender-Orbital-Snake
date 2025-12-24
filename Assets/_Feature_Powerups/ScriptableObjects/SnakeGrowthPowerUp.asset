@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41cff7434a8043439af6d0ac2927dd6f, type: 3}
-  m_Name: FreezePowerUp
+  m_Script: {fileID: 11500000, guid: 9169d4bb22df4f2380b92097bb359ffa, type: 3}
+  m_Name: SnakeGrowthPowerUp
   m_EditorClassIdentifier: 
-  PowerUpType: 0
+  PowerUpType: 1
   IsPowerUpActive: 0
-  PowerUpDuration: 2
-  ProjectileReferenceHolder: {fileID: 11400000, guid: de390f69a9f409b48acd06fbd8785a77, type: 2}
+  SnakeReferenceHolder: {fileID: 11400000, guid: e96a7c1c68b569146a2273aa7eba47f9, type: 2}

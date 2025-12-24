@@ -16,3 +16,4 @@ MonoBehaviour:
   FireballSpawnConfig: {fileID: 11400000, guid: a9e30fe55a188e54f8807e859a9f6d07, type: 2}
   CanSpawnFireballs: 1
   ProjectileReferenceHolder: {fileID: 11400000, guid: de390f69a9f409b48acd06fbd8785a77, type: 2}
+  PowerUpsSystem: {fileID: 11400000, guid: 9890d7a123dd45446a6f9964f8844a98, type: 2}

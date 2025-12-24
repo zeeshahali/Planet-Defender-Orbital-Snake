@@ -1,35 +1,39 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeController : MonoBehaviour, ILoopDetection
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+public class SnakeController : MonoBehaviour, ILoopDetection, IBodyManipulation
 {
     [SerializeField] private SnakeConfig SnakeConfig;
     
     [SerializeField] private SnakeLoopDetector snakeLoopDetector;
     [SerializeField] private DonutBoundary donutBoundary;
+    
+    [SerializeField] private SnakeReferenceHolder SnakeReferenceHolder;
 
     private List<GameObject> _bodyParts = new List<GameObject>();
     private List<Vector3> _positionsHistory = new List<Vector3>();
 
     private float _steerInput;
     private Rigidbody2D rb;
-
-    private bool _isLooping;
-
+    
     private bool _canMove;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         if (rb != null) rb.gravityScale = 0;
-
-        _isLooping = false;
-
+        
         // Initialize snake body
         for (int i = 0; i < SnakeConfig.initialBodySize; i++)
         {
             GrowSnake();
         }
+
+        SnakeReferenceHolder.BodyManipulation = this;
     }
 
     private void OnEnable()
@@ -110,21 +114,11 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         _bodyParts.Add(body);
     }
 
-    private void CheckForLoop()
+    public void ShrinkSnake()
     {
-        float collisionThreshold = 0.5f; // Adjust based on snake size
-
-        // Start loop from index 3 or 4 to avoid hitting the 'neck'
-        for (int i = 2; i < _bodyParts.Count; i++)
-        {
-            if (Vector3.Distance(this.transform.position, _bodyParts[i].transform.position) < collisionThreshold)
-            {
-                Debug.Log("Loop Detected mathematically!");
-                _isLooping = true;
-                break;
-            }
-        }
-        _isLooping = false;
+        var lastBodyPart = _bodyParts[^1];
+        _bodyParts.Remove(lastBodyPart);
+        Destroy(lastBodyPart);
     }
     
     public bool IsPointInLoop(Vector2 pos)
@@ -132,3 +126,28 @@ public class SnakeController : MonoBehaviour, ILoopDetection
         return snakeLoopDetector.IsPointInLoop(pos, this.transform.position, _bodyParts);
     }
 }
+
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(SnakeController))]
+public class SnakeControllerEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        SnakeController system = (SnakeController)target;
+
+        // Create the button
+        if (GUILayout.Button("GrowSnake"))
+        {
+            system.GrowSnake();
+        }
+        
+        if (GUILayout.Button("ShrinkSnake"))
+        {
+            system.ShrinkSnake();
+        }
+    }   
+}
+#endif
