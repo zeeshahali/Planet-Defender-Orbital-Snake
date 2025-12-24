@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb1d2b848bcab44aa23da4d780c272a, type: 3}
+  m_Name: MetaDataLoader
+  m_EditorClassIdentifier: 
+  MetaFileName: MetaSheet
+  ProjectileSpawnConfig: {fileID: 11400000, guid: a9e30fe55a188e54f8807e859a9f6d07, type: 2}
+  FireballConfig: {fileID: 11400000, guid: 59d845afb9837574ab3767165805c0fa, type: 2}
+  SpikeBallConfig: {fileID: 11400000, guid: 6771b47ed38dd214fb434ca735ea0893, type: 2}
+  SnowballConfig: {fileID: 11400000, guid: 2ef06328940512b46ac9ba6f23b0a41b, type: 2}
+  EarthConfig: {fileID: 11400000, guid: 65058bd67c241dc41a8086315e654d73, type: 2}
+  CameraShakeConfig: {fileID: 11400000, guid: 072e5d4f1f4a6b74abdc6b9ba046b505, type: 2}
+  FreezePowerUp: {fileID: 11400000, guid: 2e1e179f886a8554d88cf1497849161f, type: 2}
+  BoundaryConfig: {fileID: 11400000, guid: e596bee528a177d4487f2f07aa7ac11c, type: 2}
+  SnakeConfig: {fileID: 11400000, guid: 61ee7fb591dd5fe47a98411e6761e1aa, type: 2}

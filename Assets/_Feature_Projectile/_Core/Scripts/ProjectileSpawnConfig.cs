@@ -12,6 +12,19 @@ namespace OrbitalSnake.Projectiles
         public float SpawnRadiusMultiplier = 1;
         
         public List<ProjectileSpawnData> ProjectileSpawnData;
+
+        public ProjectileSpawnData GetProjectileSpawnData(ProjectileType type)
+        {
+            var data =  ProjectileSpawnData[0];
+            foreach (var spawnData in ProjectileSpawnData)
+            {
+                if(spawnData.ProjectileType != type) continue;
+                data = spawnData;
+                break;
+            }
+
+            return data;
+        }
     }
 
     [Serializable]
@@ -20,5 +33,10 @@ namespace OrbitalSnake.Projectiles
         public ProjectileType ProjectileType;
         public float SpawnProbability;
         public Projectile Projectile;
+
+        public void UpdateSpawnProbability(float probability)
+        {
+            SpawnProbability = probability;
+        }
     }
 }
