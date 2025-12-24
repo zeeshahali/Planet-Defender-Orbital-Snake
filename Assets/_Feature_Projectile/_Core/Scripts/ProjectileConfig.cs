@@ -7,5 +7,6 @@ namespace OrbitalSnake.Projectiles
     {
         public float Speed;
         public float Damage;
+        public GameObject ExplosionParticle;
     }
 }

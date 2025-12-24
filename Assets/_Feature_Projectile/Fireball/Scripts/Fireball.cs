@@ -4,7 +4,6 @@ namespace OrbitalSnake.Projectiles
 {
     public class Fireball : Projectile
     {
-        [SerializeField] private GameObject _explosionParticle;
 
         protected override void Awake()
         {
@@ -23,12 +22,6 @@ namespace OrbitalSnake.Projectiles
                     DestroyProjectile();
                 }
             }
-        }
-
-        public override void DestroyProjectile()
-        {
-            Instantiate(_explosionParticle, this.transform.position, Quaternion.identity);
-            base.DestroyProjectile();
         }
     }
 }

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 1
   Damage: 2
+  ExplosionParticle: {fileID: 1347560723486874, guid: a77a7282b459d3a4595fba9a195400e4, type: 3}

@@ -11,6 +11,7 @@ namespace OrbitalSnake.Projectiles
         [SerializeField] protected ProjectileConfig ProjectileConfig;
 
         [SerializeField] protected ProjectileType ProjectileType;
+        
 
         protected Transform target;
         protected Rigidbody rb;
@@ -69,6 +70,7 @@ namespace OrbitalSnake.Projectiles
 
         public virtual void DestroyProjectile()
         {
+            Instantiate(ProjectileConfig.ExplosionParticle, this.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
 
