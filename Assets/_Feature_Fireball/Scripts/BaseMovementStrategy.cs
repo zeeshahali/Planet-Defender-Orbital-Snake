@@ -19,10 +19,10 @@ public interface IMovementStrategy
 
 public interface ICollisionHandler
 {
-    void HandleCollision(Collision collision, GameObject self, ILoopDetection loopDetection);
+    void HandleCollision(Collision collision);
 }
 
 public interface IDestructible
 {
-    void Destroy();
+    void DestroyProjectile();
 }

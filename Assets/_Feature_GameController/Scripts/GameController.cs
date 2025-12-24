@@ -20,7 +20,8 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         PowerUpsSystem.Initialize(this);
-        FireballSystem.Initialize(Planet.PlanetTransform, SnakeController, this);
+        FireballSystem.Initialize(Planet.PlanetTransform, SnakeController, 
+            SnakeController, this);
     }
 
     private void OnGameOver()

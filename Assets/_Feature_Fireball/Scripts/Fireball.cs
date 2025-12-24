@@ -4,36 +4,31 @@ namespace OrbitalSnake.Projectiles
 {
     public class Fireball : Projectile
     {
-        private ILoopDetection _loopDetection;
         [SerializeField] private GameObject _explosionParticle;
 
-        public void SetLoopDetection(ILoopDetection loopDetection)
+        protected override void Awake()
         {
-            _loopDetection = loopDetection;
+            base.Awake();
+            ProjectileType = ProjectileType.Fireball;
         }
 
-        private void OnCollisionEnter(Collision other)
+        public override void HandleCollision(Collision other)
         {
-            if (other.gameObject.CompareTag("Planet"))
-            {
-                DestroyFireball();
-                EventManager.TriggerCollisionWithPlanet();
-            }
-
+            base.HandleCollision(other);
             if (other.gameObject.CompareTag("Player"))
             {
                 if (_loopDetection.IsPointInLoop(transform.position))
                 {
                     EventManager.TriggerFireballDestroyed();
-                    DestroyFireball();
+                    DestroyProjectile();
                 }
             }
         }
 
-        private void DestroyFireball()
+        public override void DestroyProjectile()
         {
             Instantiate(_explosionParticle, this.transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
+            base.DestroyProjectile();
         }
     }
 }

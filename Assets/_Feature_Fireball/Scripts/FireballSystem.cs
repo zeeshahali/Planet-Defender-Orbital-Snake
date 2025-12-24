@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using OrbitalSnake.PowerUp;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -19,7 +21,9 @@ namespace OrbitalSnake.Projectiles
         [SerializeField] private PowerUpsSystem PowerUpsSystem;
 
         private Transform _earthTransform;
+        
         private ILoopDetection _loopDetection;
+        private IBodyManipulation _bodyManipulation;
 
         private MonoBehaviour _coroutineHandler;
 
@@ -27,14 +31,17 @@ namespace OrbitalSnake.Projectiles
 
         private ProjectileFactory _projectileFactory;
 
-        public void Initialize(Transform earthTransform, ILoopDetection loopDetection, MonoBehaviour coroutineHandler)
+        public void Initialize(Transform earthTransform, ILoopDetection loopDetection,
+            IBodyManipulation bodyManipulation, MonoBehaviour coroutineHandler)
         {
             CanSpawnFireballs = true;
 
-            _projectileFactory = new ProjectileFactory(FireballSpawnConfig.FireballPrefab);
+            _projectileFactory = new ProjectileFactory(FireballSpawnConfig.FireballPrefab, 
+                FireballSpawnConfig.SpikeBallPrefab, FireballSpawnConfig.SnowballPrefab);
 
             _earthTransform = earthTransform;
             _loopDetection = loopDetection;
+            _bodyManipulation = bodyManipulation;
 
             _coroutineHandler = coroutineHandler;
 
@@ -48,13 +55,13 @@ namespace OrbitalSnake.Projectiles
             while (CanSpawnFireballs)
             {
                 yield return new WaitForSeconds(FireballSpawnConfig.SpawnDelay);
-                SpawnFireball();
+                SpawnProjectile(ProjectileType.Fireball);
             }
 
             StopSpawningCoroutine();
         }
-
-        public void SpawnFireball()
+        
+        public void SpawnProjectile(ProjectileType projectileType)
         {
             float angle = Random.Range(0f, Mathf.PI * 2);
 
@@ -66,9 +73,25 @@ namespace OrbitalSnake.Projectiles
 
             Vector3 spawnPos = _earthTransform.position + new Vector3(x, y, 0);
 
-            var projectile = _projectileFactory.CreateFireball(spawnPos, _earthTransform,
-                new GravityMovementStrategy(EarthConfig),
-                _loopDetection);
+            Projectile projectile;
+            GravityMovementStrategy gravityMovementStrategy = new GravityMovementStrategy(EarthConfig);
+
+            switch (projectileType)
+            {
+                case ProjectileType.Snowball:
+                    projectile = _projectileFactory.CreateSnowball(spawnPos, _earthTransform,
+                        gravityMovementStrategy, _loopDetection);
+                    break;
+                case ProjectileType.SpikeBall:
+                    projectile = _projectileFactory.CreateSpikeBall(spawnPos, _earthTransform,
+                        gravityMovementStrategy, _loopDetection, _bodyManipulation);
+                    break;
+                default:
+                case ProjectileType.Fireball:
+                    projectile = _projectileFactory.CreateFireball(spawnPos, _earthTransform,
+                        gravityMovementStrategy, _loopDetection);
+                    break;
+            }
 
             ProjectileReferenceHolder.Add(projectile);
             CheckActivePowerUps(projectile);
@@ -111,17 +134,23 @@ namespace OrbitalSnake.Projectiles
     [CustomEditor(typeof(FireballSystem))]
     public class FireballSystemEditor : Editor
     {
+        private ProjectileType _projectileType;
+        
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
 
             FireballSystem system = (FireballSystem)target;
 
+            EditorGUILayout.BeginHorizontal();
+            _projectileType = (ProjectileType)EditorGUILayout.EnumPopup("Projectile Type", _projectileType);
+
             // Create the button
             if (GUILayout.Button("Spawn Fireball"))
             {
-                system.SpawnFireball();
+                system.SpawnProjectile(_projectileType);
             }
+            EditorGUILayout.EndHorizontal();
 
             if (GUILayout.Button("Start Spawning Coroutine"))
             {
