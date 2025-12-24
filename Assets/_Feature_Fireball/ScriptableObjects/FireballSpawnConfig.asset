@@ -15,3 +15,5 @@ MonoBehaviour:
   SpawnDelay: 2
   SpawnRadiusMultiplier: 3.5
   FireballPrefab: {fileID: 5302340700869156523, guid: b5b4efb3e2e5b7041bb3c127d2d346e3, type: 3}
+  SpikeBallPrefab: {fileID: 6264024673947785037, guid: 5e13bff4385de4d4c9ed5880528a7b4d, type: 3}
+  SnowballPrefab: {fileID: 0}

@@ -17,9 +17,9 @@ public class CameraShake : MonoBehaviour
         EventManager.OnCollisionWithPlanet -= Shake;
     }
 
-    public void Shake()
+    public void Shake(float damage)
     {
-        Target.DOShakePosition(CameraShakeConfig.Duration, CameraShakeConfig.Strength, CameraShakeConfig.Vibratio,
+        Target.DOShakePosition(CameraShakeConfig.Duration, CameraShakeConfig.Strength * damage, CameraShakeConfig.Vibratio,
             CameraShakeConfig.Randomness, CameraShakeConfig.Snapping, CameraShakeConfig.FadeOut);
     }
 }
@@ -38,7 +38,7 @@ public class CameraShakeEditor : Editor
         // Create the button
         if (GUILayout.Button("Shake"))
         {
-            camera.Shake();
+            camera.Shake(1);
         }
     }
 }

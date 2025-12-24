@@ -74,22 +74,17 @@ namespace OrbitalSnake.Projectiles
             Vector3 spawnPos = _earthTransform.position + new Vector3(x, y, 0);
 
             Projectile projectile;
-            GravityMovementStrategy gravityMovementStrategy = new GravityMovementStrategy(EarthConfig);
-
             switch (projectileType)
             {
                 case ProjectileType.Snowball:
-                    projectile = _projectileFactory.CreateSnowball(spawnPos, _earthTransform,
-                        gravityMovementStrategy, _loopDetection);
+                    projectile = _projectileFactory.CreateSnowball(spawnPos, _earthTransform, _loopDetection);
                     break;
                 case ProjectileType.SpikeBall:
-                    projectile = _projectileFactory.CreateSpikeBall(spawnPos, _earthTransform,
-                        gravityMovementStrategy, _loopDetection, _bodyManipulation);
+                    projectile = _projectileFactory.CreateSpikeBall(spawnPos, _earthTransform, _loopDetection, _bodyManipulation);
                     break;
                 default:
                 case ProjectileType.Fireball:
-                    projectile = _projectileFactory.CreateFireball(spawnPos, _earthTransform,
-                        gravityMovementStrategy, _loopDetection);
+                    projectile = _projectileFactory.CreateFireball(spawnPos, _earthTransform, _loopDetection);
                     break;
             }
 
@@ -142,15 +137,18 @@ namespace OrbitalSnake.Projectiles
 
             FireballSystem system = (FireballSystem)target;
 
+            EditorGUILayout.Space();
+            EditorGUILayout.BeginVertical();
+            EditorGUILayout.LabelField("SpawnAnyProjectile", EditorStyles.boldLabel);
             EditorGUILayout.BeginHorizontal();
             _projectileType = (ProjectileType)EditorGUILayout.EnumPopup("Projectile Type", _projectileType);
-
-            // Create the button
             if (GUILayout.Button("Spawn Fireball"))
             {
                 system.SpawnProjectile(_projectileType);
             }
             EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space();
 
             if (GUILayout.Button("Start Spawning Coroutine"))
             {

@@ -22,11 +22,11 @@ public class PlanetHealth : MonoBehaviour
         EventManager.OnCollisionWithPlanet -= OnCollisionWithPlanet;
     }
 
-    private void OnCollisionWithPlanet()
+    private void OnCollisionWithPlanet(float damage)
     {
         if (_heatlh <= 0) return;
             
-        _heatlh -=  config.DamagePerHit;
+        _heatlh -= damage;
         _heatlh = Mathf.Clamp(_heatlh, 0, config.StartingHealth);
         EventManager.TriggerPlanetHealthUpdate(_heatlh);
         

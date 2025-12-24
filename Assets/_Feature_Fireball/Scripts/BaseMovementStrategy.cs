@@ -2,11 +2,11 @@
 
 public abstract class BaseMovementStrategy : IMovementStrategy
 {
-    protected readonly EarthConfig config;
+    protected readonly float _Speed;
     
-    protected BaseMovementStrategy(EarthConfig config)
+    protected BaseMovementStrategy(float speed)
     {
-        this.config = config;
+        _Speed = speed;
     }
     
     public abstract void Move(Rigidbody rb, Transform currentPosition, Transform targetPosition);

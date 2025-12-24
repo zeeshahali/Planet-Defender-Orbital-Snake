@@ -7,6 +7,8 @@ namespace OrbitalSnake.Projectiles
         [SerializeField] private MeshRenderer MeshRenderer;
 
         [SerializeField] private ProjectileReferenceHolder projectileReferenceHolder;
+        
+        [SerializeField] protected ProjectileConfig ProjectileConfig;
 
         [SerializeField] protected ProjectileType ProjectileType;
 
@@ -21,6 +23,8 @@ namespace OrbitalSnake.Projectiles
         {
             rb = GetComponent<Rigidbody>();
             rb.useGravity = false;
+
+            movementStrategy = new GravityMovementStrategy(ProjectileConfig.Speed);
         }
 
         public virtual void UpdateMeshRendererState(bool state)
@@ -43,11 +47,6 @@ namespace OrbitalSnake.Projectiles
             this.target = newTarget;
         }
 
-        public virtual void SetMovementStrategy(IMovementStrategy newStrategy)
-        {
-            movementStrategy = newStrategy;
-        }
-
         protected virtual void FixedUpdate()
         {
             if (movementStrategy != null)
@@ -64,7 +63,7 @@ namespace OrbitalSnake.Projectiles
             if (collision.gameObject.CompareTag("Planet"))
             {
                 DestroyProjectile();
-                EventManager.TriggerCollisionWithPlanet();
+                EventManager.TriggerCollisionWithPlanet(ProjectileConfig.Damage);
             }
         }
 

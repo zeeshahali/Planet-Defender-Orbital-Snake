@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MeshRenderer: {fileID: 6067966989623500528}
   projectileReferenceHolder: {fileID: 11400000, guid: de390f69a9f409b48acd06fbd8785a77, type: 2}
+  ProjectileConfig: {fileID: 11400000, guid: 6771b47ed38dd214fb434ca735ea0893, type: 2}
   ProjectileType: 2
 --- !u!1001 &3491869339389415056
 PrefabInstance:
