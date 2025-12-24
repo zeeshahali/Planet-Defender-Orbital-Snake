@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using OrbitalSnake.PowerUp;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -11,6 +12,9 @@ public class FireballSystem : ScriptableObject
     [SerializeField] private EarthConfig EarthConfig;
     [SerializeField] private FireballSpawnConfig FireballSpawnConfig;
     [SerializeField] private bool CanSpawnFireballs;
+    
+    [SerializeField] private ProjectileReferenceHolder ProjectileReferenceHolder;
+    [SerializeField] private PowerUpsSystem PowerUpsSystem;
     
     private Transform _earthTransform;
     private ILoopDetection _loopDetection;
@@ -37,6 +41,8 @@ public class FireballSystem : ScriptableObject
 
     private IEnumerator FireballSpawnCoroutine()
     {
+        ProjectileReferenceHolder.Clear();
+        
         while (CanSpawnFireballs)
         {
             yield return new WaitForSeconds(FireballSpawnConfig.SpawnDelay);
@@ -57,8 +63,23 @@ public class FireballSystem : ScriptableObject
 
         Vector3 spawnPos = _earthTransform.position + new Vector3(x, y, 0);
 
-        _projectileFactory.CreateFireball(spawnPos, _earthTransform, new GravityMovementStrategy(EarthConfig),
+        var projectile = _projectileFactory.CreateFireball(spawnPos, _earthTransform, new GravityMovementStrategy(EarthConfig),
             _loopDetection);
+        
+        ProjectileReferenceHolder.Add(projectile);
+    }
+
+    private void CheckActivePowerUps(Projectile projectile)
+    {
+        foreach (var activePowerUp in PowerUpsSystem.ActivePowerUps)
+        {
+            if(!activePowerUp.IsPowerUpActive || activePowerUp is not TimeBasedPowerUp timeBasedPowerUp) continue;
+            if (timeBasedPowerUp.PowerUpType == PowerUpType.FreezeTime)
+            {
+                projectile.UpdateMeshRendererState(true);
+                projectile.UpdateRbConstraints(RigidbodyConstraints.FreezeAll);
+            }
+        }
     }
 
     public void StartSpawningCoroutine()

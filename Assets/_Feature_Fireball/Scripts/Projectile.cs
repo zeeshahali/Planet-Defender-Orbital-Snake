@@ -2,6 +2,10 @@
 
 public abstract class Projectile : MonoBehaviour
 {
+    [SerializeField] private MeshRenderer MeshRenderer;
+    
+    [SerializeField] private ProjectileReferenceHolder projectileReferenceHolder;
+    
     protected Transform target;
     protected Rigidbody rb;
 
@@ -13,6 +17,16 @@ public abstract class Projectile : MonoBehaviour
         rb.useGravity = false;
     }
 
+    public virtual void UpdateMeshRendererState(bool state)
+    {
+        MeshRenderer.enabled = state;
+    }
+
+    public virtual void UpdateRbConstraints(RigidbodyConstraints constraints)
+    {
+        rb.constraints = constraints;
+    }
+    
     public virtual void SetTarget(Transform newTarget)
     {
         this.target = newTarget;
@@ -27,5 +41,11 @@ public abstract class Projectile : MonoBehaviour
     {
         if(movementStrategy!=null)
             movementStrategy.Move(rb, transform, target);
+    }
+
+    protected void OnDestroy()
+    {
+        if(projectileReferenceHolder!=null)
+            projectileReferenceHolder.Remove(this);
     }
 }
