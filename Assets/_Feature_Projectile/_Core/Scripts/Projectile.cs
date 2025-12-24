@@ -12,7 +12,6 @@ namespace OrbitalSnake.Projectiles
 
         [SerializeField] protected ProjectileType ProjectileType;
         
-
         protected Transform target;
         protected Rigidbody rb;
 

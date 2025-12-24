@@ -68,10 +68,8 @@ public class SnakeController : MonoBehaviour, ILoopDetection, IBodyManipulation
         transform.Translate(Vector3.up * SnakeConfig.MoveSpeed * Time.deltaTime);
         
         float targetAngle = -_steerInput * SnakeConfig.SteerSpeed;
-        float currentAngle = transform.eulerAngles.z;
-
-        float smoothAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * SnakeConfig.SteerLerpSpeed);
-        transform.rotation = Quaternion.Euler(0, 0, smoothAngle);
+        
+        transform.rotation = Quaternion.Euler(0, 0, targetAngle); 
         
         // 2. Handle Constraint (Stay in Donut)
         donutBoundary.ApplyConstraint(this.transform, rb);

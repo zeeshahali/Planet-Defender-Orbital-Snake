@@ -131,6 +131,7 @@ namespace OrbitalSnake.Projectiles
         public void StartSpawningCoroutine()
         {
             if (_spawningCoroutine != null) return;
+            CanSpawnFireballs = true;
             _spawningCoroutine = _coroutineHandler.StartCoroutine(ProjectileSpawnCoroutine());
         }
 
