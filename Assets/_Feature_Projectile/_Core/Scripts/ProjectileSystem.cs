@@ -40,8 +40,7 @@ namespace OrbitalSnake.Projectiles
             if(_camera == null)
                 _camera = Camera.main;
 
-            _projectileFactory = new ProjectileFactory(projectileSpawnConfig.FireballPrefab, 
-                projectileSpawnConfig.SpikeBallPrefab, projectileSpawnConfig.SnowballPrefab);
+            _projectileFactory = new ProjectileFactory(projectileSpawnConfig.ProjectileSpawnData);
 
             _earthTransform = earthTransform;
             _loopDetection = loopDetection;
@@ -52,17 +51,45 @@ namespace OrbitalSnake.Projectiles
             StartSpawningCoroutine();
         }
 
-        private IEnumerator FireballSpawnCoroutine()
+        private IEnumerator ProjectileSpawnCoroutine()
         {
             ProjectileReferenceHolder.Clear();
 
             while (CanSpawnFireballs)
             {
                 yield return new WaitForSeconds(projectileSpawnConfig.SpawnDelay);
-                SpawnProjectile(ProjectileType.Fireball);
+                SpawnProjectile(GetProjectileType());
             }
 
             StopSpawningCoroutine();
+        }
+
+        private ProjectileType GetProjectileType()
+        {
+            var data = projectileSpawnConfig.ProjectileSpawnData;
+            
+            // 1. Calculate the sum of all weights
+            float totalWeight = 0;
+            foreach (var spawnData in data)
+            {
+                totalWeight += spawnData.SpawnProbability;
+            }
+
+            // 2. Pick a random number between 0 and the total weight
+            float roll = Random.Range(0f, totalWeight);
+
+            // 3. Iterate and subtract weight until you hit 0
+            foreach (var spawnData in data)
+            {
+                if (roll < spawnData.SpawnProbability)
+                {
+                    return spawnData.ProjectileType;
+                }
+        
+                roll -= spawnData.SpawnProbability;
+            }
+            
+            return ProjectileType.Fireball;
         }
         
         public void SpawnProjectile(ProjectileType projectileType)
@@ -104,7 +131,7 @@ namespace OrbitalSnake.Projectiles
         public void StartSpawningCoroutine()
         {
             if (_spawningCoroutine != null) return;
-            _spawningCoroutine = _coroutineHandler.StartCoroutine(FireballSpawnCoroutine());
+            _spawningCoroutine = _coroutineHandler.StartCoroutine(ProjectileSpawnCoroutine());
         }
 
         public void StopSpawningCoroutine()
@@ -138,7 +165,7 @@ namespace OrbitalSnake.Projectiles
             EditorGUILayout.LabelField("SpawnAnyProjectile", EditorStyles.boldLabel);
             EditorGUILayout.BeginHorizontal();
             _projectileType = (ProjectileType)EditorGUILayout.EnumPopup("Projectile Type", _projectileType);
-            if (GUILayout.Button("Spawn Fireball"))
+            if (GUILayout.Button("Spawn Projectile"))
             {
                 system.SpawnProjectile(_projectileType);
             }

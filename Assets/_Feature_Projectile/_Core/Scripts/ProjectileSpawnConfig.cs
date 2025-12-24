@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace OrbitalSnake.Projectiles
 {
@@ -8,8 +10,15 @@ namespace OrbitalSnake.Projectiles
     {
         public float SpawnDelay = 1;
         public float SpawnRadiusMultiplier = 1;
-        public Fireball FireballPrefab;
-        public SpikeBall SpikeBallPrefab;
-        public Snowball SnowballPrefab;
+        
+        public List<ProjectileSpawnData> ProjectileSpawnData;
+    }
+
+    [Serializable]
+    public struct ProjectileSpawnData
+    {
+        public ProjectileType ProjectileType;
+        public float SpawnProbability;
+        public Projectile Projectile;
     }
 }

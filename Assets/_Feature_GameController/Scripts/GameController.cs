@@ -1,4 +1,3 @@
-using System;
 using OrbitalSnake.PowerUp;
 using OrbitalSnake.Projectiles;
 using UnityEngine;
