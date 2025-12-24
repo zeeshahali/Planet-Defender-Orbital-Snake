@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 5
   SteerSpeed: 180
-  SteerLerpSpeed: 5
+  SteerLerpSpeed: 15
   bodyPrefab: {fileID: 3008357189914711286, guid: 6363aec158a77ce4abb041b47c586aea, type: 3}
   gap: 8
   initialBodySize: 15
