@@ -2,9 +2,9 @@
 
 namespace OrbitalSnake.Projectiles
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/Fireball/FireballSpawnConfig", fileName = "FireballSpawnConfig",
+    [CreateAssetMenu(menuName = "ScriptableObjects/Fireball/ProjectileSpawnConfig", fileName = "ProjectileSpawnConfig",
         order = 0)]
-    public class FireballSpawnConfig : ScriptableObject
+    public class ProjectileSpawnConfig : ScriptableObject
     {
         public float SpawnDelay = 1;
         public float SpawnRadiusMultiplier = 1;

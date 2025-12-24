@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 993351fab88596944aa2508c18f600ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireballSystem: {fileID: 11400000, guid: b8b8a13b2c6c8d44198f9fca52cbbdb0, type: 2}
+  ProjectileSystem: {fileID: 11400000, guid: b8b8a13b2c6c8d44198f9fca52cbbdb0, type: 2}
   PowerUpsSystem: {fileID: 11400000, guid: 9890d7a123dd45446a6f9964f8844a98, type: 2}
   Planet: {fileID: 0}
   SnakeController: {fileID: 6305737563813896794}

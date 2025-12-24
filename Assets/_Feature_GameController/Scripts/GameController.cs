@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private FireballSystem FireballSystem;
+    [SerializeField] private ProjectileSystem ProjectileSystem;
     [SerializeField] private PowerUpsSystem PowerUpsSystem;
     
     [SerializeField] private Planet Planet;
@@ -20,13 +20,13 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         PowerUpsSystem.Initialize(this);
-        FireballSystem.Initialize(Planet.PlanetTransform, SnakeController, 
+        ProjectileSystem.Initialize(Planet.PlanetTransform, SnakeController, 
             SnakeController, this);
     }
 
     private void OnGameOver()
     {
-        FireballSystem.GameOver();
+        ProjectileSystem.GameOver();
         SnakeController.GameOver();
         PowerUpsSystem.GameOver();
     }

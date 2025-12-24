@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d9026a2ed34243a07e5c534104494b, type: 3}
   m_Name: SpikeBall_Config
   m_EditorClassIdentifier: 
-  Speed: 0
-  Damage: 0
+  Speed: 1
+  Damage: 2

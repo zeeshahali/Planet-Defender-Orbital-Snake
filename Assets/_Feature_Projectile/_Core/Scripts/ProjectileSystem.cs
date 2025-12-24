@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using OrbitalSnake.PowerUp;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -10,11 +8,11 @@ using UnityEditor;
 
 namespace OrbitalSnake.Projectiles
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/Systems/Fireball System", fileName = "FireballSystem", order = 0)]
-    public class FireballSystem : ScriptableObject
+    [CreateAssetMenu(menuName = "ScriptableObjects/Systems/ProjectileSystem", fileName = "ProjectileSystem", order = 0)]
+    public class ProjectileSystem : ScriptableObject
     {
         [SerializeField] private EarthConfig EarthConfig;
-        [SerializeField] private FireballSpawnConfig FireballSpawnConfig;
+        [SerializeField] private ProjectileSpawnConfig projectileSpawnConfig;
         [SerializeField] private BoundaryConfig BoundaryConfig;
         [SerializeField] private bool CanSpawnFireballs;
 
@@ -42,8 +40,8 @@ namespace OrbitalSnake.Projectiles
             if(_camera == null)
                 _camera = Camera.main;
 
-            _projectileFactory = new ProjectileFactory(FireballSpawnConfig.FireballPrefab, 
-                FireballSpawnConfig.SpikeBallPrefab, FireballSpawnConfig.SnowballPrefab);
+            _projectileFactory = new ProjectileFactory(projectileSpawnConfig.FireballPrefab, 
+                projectileSpawnConfig.SpikeBallPrefab, projectileSpawnConfig.SnowballPrefab);
 
             _earthTransform = earthTransform;
             _loopDetection = loopDetection;
@@ -60,7 +58,7 @@ namespace OrbitalSnake.Projectiles
 
             while (CanSpawnFireballs)
             {
-                yield return new WaitForSeconds(FireballSpawnConfig.SpawnDelay);
+                yield return new WaitForSeconds(projectileSpawnConfig.SpawnDelay);
                 SpawnProjectile(ProjectileType.Fireball);
             }
 
@@ -69,7 +67,7 @@ namespace OrbitalSnake.Projectiles
         
         public void SpawnProjectile(ProjectileType projectileType)
         {
-            Vector3 spawnPos = BoundaryConfig.GetRandomConstrainedPosition(_camera, FireballSpawnConfig.SpawnRadiusMultiplier);
+            Vector3 spawnPos = BoundaryConfig.GetRandomConstrainedPosition(_camera, projectileSpawnConfig.SpawnRadiusMultiplier);
 
             Projectile projectile;
             switch (projectileType)
@@ -124,7 +122,7 @@ namespace OrbitalSnake.Projectiles
     }
 
 #if UNITY_EDITOR
-    [CustomEditor(typeof(FireballSystem))]
+    [CustomEditor(typeof(ProjectileSystem))]
     public class FireballSystemEditor : Editor
     {
         private ProjectileType _projectileType;
@@ -133,7 +131,7 @@ namespace OrbitalSnake.Projectiles
         {
             DrawDefaultInspector();
 
-            FireballSystem system = (FireballSystem)target;
+            ProjectileSystem system = (ProjectileSystem)target;
 
             EditorGUILayout.Space();
             EditorGUILayout.BeginVertical();
