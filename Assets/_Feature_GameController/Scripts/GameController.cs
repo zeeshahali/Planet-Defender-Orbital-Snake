@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -6,6 +7,11 @@ public class GameController : MonoBehaviour
     [SerializeField] private Planet Planet;
     
     [SerializeField] private SnakeController SnakeController;
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
 
     private void Start()
     {
