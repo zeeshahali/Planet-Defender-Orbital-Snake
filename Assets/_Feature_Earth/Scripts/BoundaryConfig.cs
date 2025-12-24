@@ -4,7 +4,7 @@
 public class BoundaryConfig : ScriptableObject
 {
     [SerializeField] private EarthConfig EarthConfig;
-    public float OuterRadiusMultplier = 2;
+
     public float InnerRadiusMultplier = 1;
     public Vector2 CenterPoint = Vector2.zero;
 
@@ -36,5 +36,35 @@ public class BoundaryConfig : ScriptableObject
         float top = halfHeight - padding;
             
         return new Vector4(left, right, bottom, top);
+    }
+    
+    public Vector2 GetRandomConstrainedPosition(Camera cam, float radiusMultiplier)
+    {
+        var centerPoint = CenterPoint;
+        float innerRadius = GetInnerRadius();
+
+        // 1. Get the rectangular boundaries
+        float left = GetLeftBound(cam) + centerPoint.x;
+        float right = GetRightBound(cam) + centerPoint.x;
+        float bottom = GetBottomBound(cam) + centerPoint.y;
+        float top = GetTopBound(cam) + centerPoint.y;
+
+        Vector2 randomPos;
+        int attempts = 0;
+
+        // 2. Keep picking a point until it is outside the inner circle
+        do
+        {
+            float x = Random.Range(left, right);
+            float y = Random.Range(bottom, top);
+            randomPos = new Vector2(x, y);
+        
+            attempts++;
+            // Safety check to prevent infinite loops if the circle is larger than the rectangle
+            if (attempts > 100) break; 
+
+        } while (Vector2.Distance(randomPos, centerPoint) < innerRadius * radiusMultiplier);
+
+        return randomPos;
     }
 }

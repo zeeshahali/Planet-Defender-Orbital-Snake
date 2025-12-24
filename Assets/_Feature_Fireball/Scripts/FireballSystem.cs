@@ -15,6 +15,7 @@ namespace OrbitalSnake.Projectiles
     {
         [SerializeField] private EarthConfig EarthConfig;
         [SerializeField] private FireballSpawnConfig FireballSpawnConfig;
+        [SerializeField] private BoundaryConfig BoundaryConfig;
         [SerializeField] private bool CanSpawnFireballs;
 
         [SerializeField] private ProjectileReferenceHolder ProjectileReferenceHolder;
@@ -30,11 +31,16 @@ namespace OrbitalSnake.Projectiles
         private Coroutine _spawningCoroutine;
 
         private ProjectileFactory _projectileFactory;
+        
+        private Camera _camera;
 
         public void Initialize(Transform earthTransform, ILoopDetection loopDetection,
             IBodyManipulation bodyManipulation, MonoBehaviour coroutineHandler)
         {
             CanSpawnFireballs = true;
+            
+            if(_camera == null)
+                _camera = Camera.main;
 
             _projectileFactory = new ProjectileFactory(FireballSpawnConfig.FireballPrefab, 
                 FireballSpawnConfig.SpikeBallPrefab, FireballSpawnConfig.SnowballPrefab);
@@ -63,15 +69,7 @@ namespace OrbitalSnake.Projectiles
         
         public void SpawnProjectile(ProjectileType projectileType)
         {
-            float angle = Random.Range(0f, Mathf.PI * 2);
-
-            float spawnRadius = EarthConfig.Radius * FireballSpawnConfig.SpawnRadiusMultiplier;
-
-            // Calculate position using Sine and Cosine
-            float x = Mathf.Cos(angle) * spawnRadius;
-            float y = Mathf.Sin(angle) * spawnRadius;
-
-            Vector3 spawnPos = _earthTransform.position + new Vector3(x, y, 0);
+            Vector3 spawnPos = BoundaryConfig.GetRandomConstrainedPosition(_camera, FireballSpawnConfig.SpawnRadiusMultiplier);
 
             Projectile projectile;
             switch (projectileType)
