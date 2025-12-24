@@ -7,6 +7,11 @@ namespace OrbitalSnake.PowerUp
         public PowerUpType PowerUpType;
         public bool IsPowerUpActive;
 
+        public void Initialize()
+        {
+            IsPowerUpActive = false;
+        }
+        
         public virtual void ActivatePowerUp()
         {
             if (IsPowerUpActive) return;

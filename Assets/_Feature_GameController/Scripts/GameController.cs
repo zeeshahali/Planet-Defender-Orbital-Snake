@@ -1,9 +1,12 @@
 using System;
+using OrbitalSnake.PowerUp;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] private FireballSystem FireballSystem;
+    [SerializeField] private PowerUpsSystem PowerUpsSystem;
+    
     [SerializeField] private Planet Planet;
     
     [SerializeField] private SnakeController SnakeController;
@@ -15,6 +18,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        PowerUpsSystem.Initialize(this);
         FireballSystem.Initialize(Planet.PlanetTransform, SnakeController, this);
     }
 
@@ -22,6 +26,7 @@ public class GameController : MonoBehaviour
     {
         FireballSystem.GameOver();
         SnakeController.GameOver();
+        PowerUpsSystem.GameOver();
     }
     
     private void OnEnable()

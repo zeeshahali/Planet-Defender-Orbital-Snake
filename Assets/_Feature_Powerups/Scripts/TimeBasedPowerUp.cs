@@ -13,7 +13,7 @@ namespace OrbitalSnake.PowerUp
 
         public bool CanDeactivatePowerUp(int currentTime)
         {
-            return _StartTime + currentTime > PowerUpDuration;
+            return currentTime - _StartTime > PowerUpDuration;
         }
     }
 }

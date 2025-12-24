@@ -19,7 +19,7 @@ namespace OrbitalSnake.PowerUp
         public override void DeactivatePowerUp()
         {
             base.DeactivatePowerUp();
-            ProjectileReferenceHolder.FreezeProjectiles();
+            ProjectileReferenceHolder.UnFreezeProjectiles();
         }
     }
 }

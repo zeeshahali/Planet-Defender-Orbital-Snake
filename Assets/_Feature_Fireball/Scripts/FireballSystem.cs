@@ -67,6 +67,7 @@ public class FireballSystem : ScriptableObject
             _loopDetection);
         
         ProjectileReferenceHolder.Add(projectile);
+        CheckActivePowerUps(projectile);
     }
 
     private void CheckActivePowerUps(Projectile projectile)

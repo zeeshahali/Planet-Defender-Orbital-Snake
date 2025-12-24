@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FireballSystem: {fileID: 11400000, guid: b8b8a13b2c6c8d44198f9fca52cbbdb0, type: 2}
-  EarthTransform: {fileID: 0}
+  PowerUpsSystem: {fileID: 11400000, guid: 9890d7a123dd45446a6f9964f8844a98, type: 2}
+  Planet: {fileID: 0}
   SnakeController: {fileID: 6305737563813896794}
 --- !u!1001 &2433323096240675472
 PrefabInstance:
@@ -70,7 +71,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6641022285237788534, guid: 7414bd6003dd29246b09a42b9e2bd3aa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6641022285237788534, guid: 7414bd6003dd29246b09a42b9e2bd3aa, type: 3}
       propertyPath: m_LocalRotation.w

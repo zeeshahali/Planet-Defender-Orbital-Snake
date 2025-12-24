@@ -16,7 +16,7 @@ namespace OrbitalSnake.PowerUp
         [SerializeField] private List<BasePowerUp> PowerUps;
     
         // List all the active powerUps.
-        public List<BasePowerUp> ActivePowerUps;
+        public List<BasePowerUp> ActivePowerUps = new List<BasePowerUp>();
         
         // cache powerUps for quick activation
         private Dictionary<PowerUpType, BasePowerUp> _powerUpDict = new Dictionary<PowerUpType, BasePowerUp>();
@@ -34,6 +34,7 @@ namespace OrbitalSnake.PowerUp
             
             InitializePowerUpsDictionary();
             
+            ActivePowerUps = new List<BasePowerUp>();
             StartTimeCheckCoroutine();
         }
 
@@ -41,6 +42,7 @@ namespace OrbitalSnake.PowerUp
         {
             foreach (BasePowerUp basePowerUp in PowerUps)
             {
+                basePowerUp.Initialize();
                 _powerUpDict.Add(basePowerUp.PowerUpType, basePowerUp);
             }
         }
